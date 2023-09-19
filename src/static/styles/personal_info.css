@@ -1,0 +1,122 @@
+/* Reset de estilos para asegurarse de que los navegadores no apliquen estilos predeterminados */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+p{
+    padding: 5px;
+}
+header {
+    width: 100%;
+    height: 150px;
+    background-color: rgb(151, 0, 0); /* Color vino elegante */
+    color: #fff; /* Texto blanco */
+    display: flex; /* Muestra los elementos de izquierda a derecha */
+    justify-content: space-between; /* Distribuye los elementos a lo largo del eje horizontal */
+    align-items: center; /* Centra verticalmente los elementos */
+    padding: 20px; /* Ajusta el espaciado interno */
+  }
+
+header h1 {
+  font-size: 45px;
+  margin-bottom: 20px;
+}
+
+.logout-button {
+  position: absolute;
+  top: 10px; /* Ajusta la distancia superior según tu preferencia */
+  right: 10px; /* Ajusta la distancia derecha según tu preferencia */
+  background-color: rgb(151, 0, 0); /* Color de fondo rojo (puedes cambiarlo) */
+  color: #fff; /* Texto blanco */
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+/* Estilos generales para el cuerpo de la página */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2; /* Fondo gris claro */
+  
+}
+
+main{
+    display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+
+/* Estilos para la sección de información personal */
+.user-section {
+  text-align: center;
+  max-width: 800px;
+  padding: 20px;
+  background-color: #fff; /* Fondo blanco */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  border-radius: 20px;
+  transition: transform 0.2s ease-in-out;
+  margin: 20px; /* Espacio entre la sección y otros elementos */
+}
+
+.user-section:hover {
+  transform: scale(1.05);
+}
+
+.user-section h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Estilos para el formulario de edición */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+label {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+input[type="submit"] {
+  background-color: rgb(151, 0, 0); /* Color vino elegante */
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  margin-top: 15px;
+}
+
+input[type="submit"]:hover {
+  background-color: #a51945; /* Cambia el color al pasar el mouse */
+}
+
+/* Estilos para el pie de página */
+footer {
+  background-color: rgb(151, 0, 0); /* Color vino elegante */
+  color: #fff; /* Texto blanco */
+  text-align: center;
+  padding: 10px 0;
+  border-top: 2px solid #fff;
+  font-size: 14px;
+}

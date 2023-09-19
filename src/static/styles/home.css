@@ -1,0 +1,214 @@
+/* Reset de estilos para asegurarse de que los navegadores no apliquen estilos predeterminados */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilos generales para el cuerpo de la página */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2; /* Fondo gris claro */
+  margin: 0;
+  padding: 0;
+}
+
+/* Estilos para el encabezado */
+header {
+    background-color: rgb(151, 0, 0); /* Color vino elegante */
+    color: #fff; /* Texto blanco */
+    text-align: center;
+    padding: 35px 0;
+  }
+  
+  header h1 {
+    font-size: 45px;
+    margin-bottom: 20px;
+  }
+
+.subtitles{
+  margin: 50px;
+  font-weight: bold;
+  font-size: large;
+}
+
+/* Estilos para la sección de usuario */
+.user-section {
+  background-color: #fff; /* Fondo blanco */
+  min-height: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+.user-section h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+/* Estilos para el menú desplegable */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  background-color: rgb(151, 0, 0); /* Color vino con transparencia */
+  color: #fff; /* Texto blanco */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 5px;
+}
+
+.dropdown-content a {
+  color: #333; /* Texto gris oscuro */
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.3s ease-in-out;
+  border-radius: 5px;
+}
+
+.dropdown-content a:hover {
+  background-color: rgba(
+    151,
+    0,
+    0,
+    0.2
+  ); /* Cambia el color al pasar el mouse */
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #a51945; /* Cambia el color al pasar el mouse */
+}
+
+/* Estilos para el pie de página */
+footer {
+  background-color: rgb(151, 0, 0); /* Color vino elegante */
+  color: #fff; /* Texto blanco */
+  text-align: center;
+  padding: 10px 0;
+  border-top: 2px solid #fff;
+  font-size: 14px;
+}
+/* Estilos para el botón de cambiar foto de perfil */
+.profile-button {
+    background-color: rgb(151, 0, 0); /* Color azul */
+    color: #fff; /* Texto blanco */
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.profile-button:hover {
+    background-color: #a51945; /* Cambia el color al pasar el mouse */
+}
+
+/* Estilos para el input de carga de imagen */
+.profile-image-input {
+    display: none; /* Oculta el input de carga */
+}
+
+/* Estilos para el icono de cámara */
+.profile-camera-icon {
+    font-size: 20px;
+    margin-right: 5px;
+}
+
+/* Estilos para la imagen de perfil */
+.user-profile-image {
+    max-width: 150px; /* Tamaño máximo de la imagen */
+    max-height: 150px;
+    border-radius: 50%; /* Forma redonda */
+    margin-top: 20px;
+    border: 3px solid rgba(151, 0, 0, 0.8); /* Borde azul */
+}
+.logo {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+  }
+
+  /* Estilos para el botón de cerrar sesión en la esquina superior derecha */
+.logout-button {
+    position: absolute;
+    top: 10px; /* Ajusta la distancia superior según tu preferencia */
+    right: 10px; /* Ajusta la distancia derecha según tu preferencia */
+    background-color: rgb(151, 0, 0); /* Color de fondo rojo (puedes cambiarlo) */
+    color: #fff; /* Texto blanco */
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 1s ease-in-out;
+}
+
+.logout-button:hover {
+    background-color: #CC0000; /* Cambia el color al pasar el mouse */
+}
+
+@keyframes rellenar{
+  to{
+    stroke-dasharray: var(--promedio) 100;
+  }
+}
+
+svg {
+  width: 200px;
+  height: 200px;
+  color: #333;
+}
+
+.porcentajes{
+  position:relative;
+}
+.porcentajes span{
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  bottom: 0%;
+  right: 0%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 25px/1em Verdana;
+}
+
+circle{
+  fill: none;
+  stroke-width: 20;
+  transform: rotate(-90deg);
+  transform-origin: 50%;
+  stroke-dasharray: 100 100;
+  stroke: #AAA;
+}
+circle:nth-child(2){ /* el segundo círculo, es el que se ve por encima del anterior y debe tener el color mas intenso y el area del porcentaje */
+  stroke: var(--color);
+  stroke-dasharray: 0 100;
+  animation: rellenar .35s linear forwards;
+}

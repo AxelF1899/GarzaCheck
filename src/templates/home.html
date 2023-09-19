@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GarzaCheck - Inicio</title>
+    <!-- Agrega aquí tus enlaces a hojas de estilo y otros recursos si es necesario -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles/home.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <header>
+      <img
+        src="{{ url_for('static', filename='icons/gCLogo.png') }}"
+        alt="Logo de tu empresa"
+        class="logo"
+      />
+      <!-- Botón para cerrar sesión -->
+      <form action="/logout" >
+        <input type="submit" value="Cerrar Sesión" class="logout-button" />
+      </form>
+      <h1>GarzaCheck</h1>
+    </header>
+
+    <main>
+      <section class="user-section">
+        <h2>Hola, Axel</h2>
+        
+        <p>Selecciona una opción del menú:</p>
+        <div class="dropdown">
+          <button class="dropbtn"><i class="fas fa-bars"></i> Menú</button>
+          <div class="dropdown-content">
+            <a href="{{ url_for('horarios') }}">Crear horario de clases</a>
+            <a href="#">Predicción de promedio</a>
+            <a href="#">Seguimiento de faltas</a>
+            <a href="{{ url_for('informacion_personal') }}">Información personal</a>
+
+          </div>
+        </div>
+
+        <!-- Agrega un input para cambiar la foto de perfil -->
+        <input
+          type="file"
+          id="profile-image"
+          class="profile-image-input"
+          accept="image/*"
+        />
+        <button class="profile-button" onclick="changeProfileImage()">
+          <i class="fas fa-camera profile-camera-icon"></i> Cambiar Foto de
+          Perfil
+        </button>
+
+        <!-- Agrega una imagen de perfil predeterminada con un ID -->
+        <img
+          id="user-profile-image"
+          src="{{ url_for('static', filename='icons/heronLogo.png') }}"
+          alt="Foto de perfil"
+          class="user-profile-image"
+        />
+
+        <h2 class="subtitles">
+          Tu promedio general
+        </h2>
+        <!-- Gráfica circular del promedio -->
+          <!-- Fondo de la gráfica -->
+          <div class='porcentajes' style="--promedio: 97.6; --color: green">
+            <svg width="150" height="150">
+              <circle r="65" cx="50%" cy="50%" pathlength="100" />
+              <circle r="65" cx="50%" cy="50%" pathlength="100" />
+            </svg>
+            <span>9.76</span>
+          </div>
+        </svg>
+        
+
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; {{ current_year }} GarzaCheck</p>
+    </footer>
+
+    <!-- Agrega el código JavaScript aquí -->
+    <script>
+      function changeProfileImage() {
+        const profileImageInput = document.getElementById("profile-image");
+
+        // Escucha el evento "change" cuando el usuario selecciona una nueva imagen
+        profileImageInput.addEventListener("change", function (event) {
+          const selectedImage = event.target.files[0];
+
+          if (selectedImage) {
+            // Crear una URL para la imagen seleccionada
+            const imageUrl = URL.createObjectURL(selectedImage);
+
+            // Actualizar la imagen de perfil con la nueva URL
+            const profileImage = document.getElementById("user-profile-image");
+            profileImage.src = imageUrl;
+          }
+        });
+
+        // Dispara el clic en el input de imagen
+        profileImageInput.click();
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing GarzaCheck</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}">
+    <style>
+    </style>
+</head>
+<body>
+    <header>
+         
+         <img src="{{ url_for('static', filename='icons/gCLogo.png') }}" alt="Logo de tu empresa" class="logo">
+         <div>
+            <h1>Bienvenido a GarzaCheck</h1>
+            <p>Administra tus calificaciones, faltas y tareas de manera eficiente.</p>
+         </div>
+        <a href="{{ url_for('login') }}" class="button-login">Iniciar sesión con Google</a>
+    </header>
+    
+    <section id="features">
+        <div class="feature">
+            <h2>Historial de Calificaciones</h2>
+            <p>Visualiza y gestiona tus calificaciones de forma sencilla.</p>
+        </div>
+        <div class="feature">
+            <h2>Seguimiento de Faltas</h2>
+            <p>Controla tu asistencia y registra tus faltas.</p>
+        </div>
+        <div class="feature">
+            <h2>Agenda de Tareas</h2>
+            <p>Mantén un registro de tus tareas y fechas de entrega.</p>
+        </div>
+    </section>
+    
+    <div class="carousel-container">
+        <div class="carousel">
+            <div class="step step-bg" style="background-image: url('static/icons/login.png');">
+                <div class="step-content">
+                    <h2>Paso 1</h2>
+                    <p>Regístrate en GarzaCheck con tu cuenta de Google.</p>
+                </div>
+            </div>
+            <div class="step step-bg" style="background-image: url('static/icons/menu.png');">
+                <div class="step-content">
+                    <h2>Paso 2</h2>
+                    <p>Gestiona tus calificaciones y registra tus faltas de manera sencilla.</p>
+                </div>
+            </div>
+            <div class="step step-bg" style="background-image: url('static/icons/manage.png');">
+                <div class="step-content">
+                    <h2>Paso 3</h2>
+                    <p>Mantén un registro de tus tareas y fechas de entrega.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; {{ current_year }} GarzaCheck</p>
+      </footer>
+
+    <script>
+        // JavaScript para controlar el carrusel de texto
+        const carousel = document.querySelector('.carousel');
+        const steps = document.querySelectorAll('.step');
+        const interval = 3000; // Cambio de paso cada 3 segundos
+        let index = 0;
+
+        function changeStep() {
+            steps[index].classList.remove('active');
+            index = (index + 1) % steps.length;
+            steps[index].classList.add('active');
+            carousel.style.transform = `translateY(-${index * 100/3}%)`;
+        }
+
+        setInterval(changeStep, interval);
+    </script>
+
+</body>
+</html>
