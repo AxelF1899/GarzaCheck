@@ -96,5 +96,7 @@ def horarios():
     return render_template('schedules.html')
 
 
+
 if __name__ == '__main__':
     app.run(debug=True)
+

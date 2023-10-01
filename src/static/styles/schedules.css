@@ -48,60 +48,133 @@ header h1 {
 .logout-button:hover {
   background-color: #a51945; /* Cambia el color al pasar el mouse */
 }
-
-/* Estilos para el contenido principal */
+/* Estilo para el contenedor principal (main) */
 main {
   display: flex;
-  margin-top: 40px;
-  align-items: center;
-  min-height: 100vh;
-  flex-direction: column;
-}
-
-/* Estilos para el formulario de creación de horarios */
-.horario-section {
-  text-align: center;
-  max-width: 800px;
+  justify-content: space-between;
+  align-items: flex-start;
   padding: 20px;
-  background-color: #fff; /* Fondo blanco */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
-  border-radius: 20px;
-  transition: transform 0.2s ease-in-out;
-  margin: 20px; /* Espacio entre la sección y otros elementos */
+  max-width: 1200px;
+  margin: 20px auto;
+  box-sizing: border-box;
 }
 
-.horario-section:hover {
-  transform: scale(1.05);
+/* Estilo para la sección de horarios */
+.horario-section {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: calc(50% - 20px);
+  margin-right: 20px;
+  box-sizing: border-box;
 }
 
 .horario-section h2 {
   font-size: 24px;
   margin-bottom: 20px;
+  color: #333;
 }
 
-/* Estilos para el formulario de edición */
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+/* Estilos para los botones */
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: rgb(151, 0, 0);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background-color 0.3s ease-in-out;
 }
 
-label {
+.button:hover {
+  background-color: #a51945;
+}
+
+/* Estilos para el botón de impresión */
+#imprimir-horario {
+  margin: 15px;
+  padding: 10px 20px;
+  background-color: rgb(151, 0, 0);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+#imprimir-horario:hover {
+  background-color: #a51945;
+}
+#agregar-materia{
+  margin: 15px;
+  padding: 10px 20px;
+  background-color: rgb(151, 0, 0);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background-color 0.3s ease-in-out;
+}
+#agregar-materia:hover{
+  background-color: #a51945;
+}
+.agregar-horario{
+  margin: 15px;
+  padding: 10px 20px;
+  background-color: rgb(151, 0, 0);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background-color 0.3s ease-in-out;
+}
+.agregar-horario:hover{
+  background-color: #a51945;
+}
+/* Estilos para el formulario de materia */
+.materia-section {
+  background-color: #f7f7f7;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+}
+
+.materia-section h3 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.materia-section label {
   font-weight: bold;
   margin-top: 10px;
 }
 
-input[type="number"] {
+.materia-section input[type="text"],
+.materia-section input[type="time"],
+.materia-section input[type="number"],
+.materia-section select {
   width: 100%;
   padding: 10px;
-  margin: 5px 0;
+  margin: 20px 0;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
 }
 
-input[type="submit"] {
-  background-color: rgb(151, 0, 0); /* Color vino elegante */
+.materia-section input[type="submit"] {
+  background-color: rgb(151, 0, 0);
   color: #fff;
   padding: 10px 20px;
   border: none;
@@ -112,69 +185,27 @@ input[type="submit"] {
   margin-top: 15px;
 }
 
-input[type="submit"]:hover {
-  background-color: #a51945; /* Cambia el color al pasar el mouse */
+.materia-section input[type="submit"]:hover {
+  background-color: #a51945;
 }
-
-/* Estilos para la tabla de horarios */
-table {
-  width: 100%;
-  border-collapse: collapse;
+h4 {
+  font-weight: 900;
+  margin-bottom: 30px;
+}
+#hora_inicio{
+  width: fit-content;
+}
+#hora_fin{
+  width: fit-content;
+}
+/* Estilo para el contenedor de la tabla */
+#horario-table-container {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: calc(50% - 20px);
+  overflow: auto;
   margin-top: 20px;
-}
-
-table th,
-table td {
-  border: 1px solid #ccc;
-  padding: 10px;
-  text-align: center;
-}
-
-/* Estilos para los botones */
-.botones {
-  margin-top: 20px;
-}
-
-.botones button {
-  margin-bottom: 20px;
-}
-
-button {
-  background-color: rgb(151, 0, 0); /* Color vino elegante */
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  font-size: 18px;
-  cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
-  margin-right: 10px;
-}
-
-button:hover {
-  background-color: #a51945; /* Cambia el color al pasar el mouse */
-}
-
-/* Estilos para el botón de impresión */
-#print-horario {
-  background-color: #00ff15; /* Color verde */
-  color: #fff;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  font-size: 18px;
-  cursor: pointer;
-  transition: background-color 0.3s ease-in-out;
-}
-
-#print-horario:hover {
-  background-color: #00cc11; /* Cambia el color al pasar el mouse */
-}
-footer {
-  background-color: rgb(151, 0, 0); /* Color vino elegante */
-  color: #fff; /* Texto blanco */
-  text-align: center;
-  padding: 10px 0;
-  border-top: 2px solid #fff;
-  font-size: 14px;
+  box-sizing: border-box;
 }
