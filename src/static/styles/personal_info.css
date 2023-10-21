@@ -62,7 +62,7 @@ main{
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
   border-radius: 20px;
   transition: transform 0.2s ease-in-out;
-  margin: 20px; /* Espacio entre la sección y otros elementos */
+  margin: 50px; /* Espacio entre la sección y otros elementos */
 }
 
 .user-section:hover {
@@ -72,6 +72,9 @@ main{
 .user-section h2 {
   font-size: 24px;
   margin-bottom: 20px;
+}
+.user-section h3{
+  margin: 20px;
 }
 
 /* Estilos para el formulario de edición */

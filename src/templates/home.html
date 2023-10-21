@@ -28,18 +28,127 @@
       <h1>GarzaCheck</h1>
     </header>
 
+    <div id="surveyModal" class="modal">
+      <div class="modal-content">
+        <div class="mini-header">
+          <h2>Mejora de rendimiento académico</h2>
+        </div>
+        <h3>¡Gracias por ayudarnos a mejorar! Esta encuesta nos permite conocer más sobre tu bienestar y tu desempeño académico.</h3>
+        <form id="surveyForm">
+          <!-- Preguntas sobre Estrés -->
+          <p>1. ¿Cómo describirías tu nivel de estrés en general?</p>
+            <label><input type="radio" name="q1" value="5"> Muy alto</label>
+            <label><input type="radio" name="q1" value="4"> Alto</label>
+            <label><input type="radio" name="q1" value="3"> Moderado</label>
+            <label><input type="radio" name="q1" value="2"> Bajo</label>
+            <label><input type="radio" name="q1" value="1"> Muy bajo</label>
+
+          <p>2. ¿Cómo han cambiado tus hábitos alimenticios recientemente?</p>
+            <label><input type="radio" name="q2" value="4"> Han empeorado</label>
+            <label><input type="radio" name="q2" value="3"> Han cambiado un poco</label>
+            <label><input type="radio" name="q2" value="2"> Se han mantenido iguales</label>
+            <label><input type="radio" name="q2" value="1"> Han mejorado</label>
+
+          <p>3. ¿Cuánto te afectan los problemas de insomnio o el sueño inadecuado?</p>
+            <label><input type="radio" name="q3" value="5"> Mucho</label>
+            <label><input type="radio" name="q3" value="4"> Bastante</label>
+            <label><input type="radio" name="q3" value="3"> Algo</label>
+            <label><input type="radio" name="q3" value="2"> Poco</label>
+            <label><input type="radio" name="q3" value="1"> Nada</label>
+
+          <p>4. ¿Qué tan abrumado te sientes por tus responsabilidades académicas?</p>
+            <label><input type="radio" name="q4" value="5"> Muy abrumado</label>
+            <label><input type="radio" name="q4" value="4"> Bastante abrumado</label>
+            <label><input type="radio" name="q4" value="3"> Algo abrumado</label>
+            <label><input type="radio" name="q4" value="2"> Un poco abrumado</label>
+            <label><input type="radio" name="q4" value="1"> Nada abrumado</label>
+
+          <p>5. ¿Cuánto ha disminuido tu interés en actividades que solías disfrutar?</p>
+            <label><input type="radio" name="q5" value="5"> Mucho</label>
+            <label><input type="radio" name="q5" value="4"> Bastante</label>
+            <label><input type="radio" name="q5" value="3"> Algo</label>
+            <label><input type="radio" name="q5" value="2"> Poco</label>
+            <label><input type="radio" name="q5" value="1"> Nada</label>
+
+          <p>6. ¿Qué tan cansado o fatigado te sientes en general?</p>
+            <label><input type="radio" name="q6" value="5"> Muy cansado</label>
+            <label><input type="radio" name="q6" value="4"> Bastante cansado</label>
+            <label><input type="radio" name="q6" value="3"> Algo cansado</label>
+            <label><input type="radio" name="q6" value="2"> Un poco cansado</label>
+            <label><input type="radio" name="q6" value="1"> Nada cansado</label>
+
+          <p>7. ¿Cómo calificarías tu capacidad de concentración en tus estudios?</p>
+            <label><input type="radio" name="q7" value="5"> Muy baja</label>
+            <label><input type="radio" name="q7" value="4"> Baja</label>
+            <label><input type="radio" name="q7" value="3"> Moderada</label>
+            <label><input type="radio" name="q7" value="2"> Alta</label>
+            <label><input type="radio" name="q7" value="1"> Muy alta</label>
+
+          <p>8. ¿Cuánto ha cambiado tu estado de ánimo en las últimas semanas?</p>
+            <label><input type="radio" name="q8" value="5"> Mucho</label>
+            <label><input type="radio" name="q8" value="4"> Bastante</label>
+            <label><input type="radio" name="q8" value="3"> Algo</label>
+            <label><input type="radio" name="q8" value="2"> Poco</label>
+            <label><input type="radio" name="q8" value="1"> Nada</label>
+
+          <p>9. ¿Con qué frecuencia tienes pensamientos negativos o preocupantes?</p>
+            <label><input type="radio" name="q9" value="5"> Siempre</label>
+            <label><input type="radio" name="q9" value="4"> Frecuentemente</label>
+            <label><input type="radio" name="q9" value="3"> Ocasionalmente</label>
+            <label><input type="radio" name="q9" value="2"> Raramente</label>
+            <label><input type="radio" name="q9" value="1"> Nunca</label>
+
+          <p>10. ¿Cómo calificarías tu habilidad para mantener relaciones personales?</p>
+            <label><input type="radio" name="q10" value="5"> Muy baja</label>
+            <label><input type="radio" name="q10" value="4"> Baja</label>
+            <label><input type="radio" name="q10" value="3"> Moderada</label>
+            <label><input type="radio" name="q10" value="2"> Alta</label>
+            <label><input type="radio" name="q10" value="1"> Muy alta</label>
+
+          <!-- Preguntas sobre Descanso y Sueño -->
+          <p>11. ¿Cuántas horas duermes en promedio por noche?</p>
+            <label><input type="radio" name="q11" value="5"> Menos de 5 horas</label>
+            <label><input type="radio" name="q11" value="4"> 5-6 horas</label>
+            <label><input type="radio" name="q11" value="3"> 6-7 horas</label>
+            <label><input type="radio" name="q11" value="2"> 7-8 horas</label>
+            <label><input type="radio" name="q11" value="1"> Más de 8 horas</label>
+
+          <p>12. ¿Cómo te sientes por la mañana después de dormir?</p>
+            <label><input type="radio" name="q12" value="4"> Muy cansado</label>
+            <label><input type="radio" name="q12" value="3"> Cansado</label>
+            <label><input type="radio" name="q12" value="2"> Más o menos</label>
+            <label><input type="radio" name="q12" value="1"> Descansado</label>
+
+          <p>13. ¿Cómo describirías la calidad de tu sueño en las últimas semanas?</p>
+            <label><input type="radio" name="q13" value="4"> Mala</label>
+            <label><input type="radio" name="q13" value="3"> Regular</label>
+            <label><input type="radio" name="q13" value="2"> Buena</label>
+            <label><input type="radio" name="q13" value="1"> Excelente</label>
+
+          <p>14. ¿Con qué frecuencia tomas siestas largas durante el día?</p>
+            <label><input type="radio" name="q14" value="4"> A diario</label>
+            <label><input type="radio" name="q14" value="3"> Varias veces por semana</label>
+            <label><input type="radio" name="q14" value="2"> Ocasionalmente</label>
+            <label><input type="radio" name="q14" value="1"> Casi nunca</label>
+
+          <button type="button" id="submitSurvey">Enviar</button>
+        </form>
+      </div>
+    </div>
+
     <main>
       <section class="user-section">
-        <h2>Hola, Axel</h2>
+        <h2>Hola, {{first_name}}</h2>
         
         <p>Selecciona una opción del menú:</p>
         <div class="dropdown">
           <button class="dropbtn"><i class="fas fa-bars"></i> Menú</button>
           <div class="dropdown-content">
-            <a href="{{ url_for('horarios') }}">Crear horario de clases</a>
+            <a href="#">Mi estrategia</a>
             <a href="#">Predicción de promedio</a>
-            <a href="#">Seguimiento de faltas</a>
+            <a href="#">Top docentes</a>
             <a href="{{ url_for('informacion_personal') }}">Información personal</a>
+            <a href="{{ url_for('horarios') }}">Gestionar horario</a>
 
           </div>
         </div>
@@ -80,7 +189,7 @@
         
 
       </section>
-    </main>
+    </main>    
 
     <footer>
       <p>&copy; {{ current_year }} GarzaCheck</p>
@@ -108,6 +217,23 @@
         // Dispara el clic en el input de imagen
         profileImageInput.click();
       }
+    </script>
+    <script>
+      // Mostrar el modal al cargar la página de inicio
+window.onload = function() {
+    document.getElementById("surveyModal").style.display = "flex";
+  };
+  
+  // Ocultar el modal al hacer clic en el botón "Enviar"
+  document.getElementById("submitSurvey").onclick = function() {
+    document.getElementById("surveyModal").style.display = "none";
+  };
+  
+  // Ocultar el modal al hacer clic en la "x"
+  document.getElementById("closeSurveyModal").onclick = function() {
+    document.getElementById("surveyModal").style.display = "none";
+  };
+  
     </script>
   </body>
 </html>

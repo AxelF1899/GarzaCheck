@@ -56,7 +56,7 @@ header {
 }
 
 .dropbtn {
-  background-color: rgb(151, 0, 0); /* Color vino con transparencia */
+  background-color: #970000; /* Color vino con transparencia */
   color: #fff; /* Texto blanco */
   padding: 10px 20px;
   border: none;
@@ -158,7 +158,7 @@ footer {
     position: absolute;
     top: 10px; /* Ajusta la distancia superior según tu preferencia */
     right: 10px; /* Ajusta la distancia derecha según tu preferencia */
-    background-color: rgb(151, 0, 0); /* Color de fondo rojo (puedes cambiarlo) */
+    background-color: #970000; /* Color de fondo rojo (puedes cambiarlo) */
     color: #fff; /* Texto blanco */
     padding: 10px 15px;
     border: none;
@@ -210,5 +210,99 @@ circle{
 circle:nth-child(2){ /* el segundo círculo, es el que se ve por encima del anterior y debe tener el color mas intenso y el area del porcentaje */
   stroke: var(--color);
   stroke-dasharray: 0 100;
-  animation: rellenar .35s linear forwards;
+  animation: rellenar 4s ease-in-out forwards;
+}
+
+
+
+
+/* Estilos para la modal de encuesta */
+#surveyModal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+}
+
+#surveyModal .modal-content{
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 30px;
+  text-align: center;
+  color: #000;
+  max-width: 40%; /* Ancho máximo del contenido del modal */
+  max-height: 70%; /* Altura máxima del contenido del modal */
+  overflow-y: auto; /* Agrega una barra de desplazamiento vertical si es necesario */
+}
+
+#surveyModal .mini-header{
+  
+  width: 100%;
+  background-color: #970000;
+  margin-bottom: 40px;
+  padding: 3% 0;
+  border-radius: 25px 0;
+}
+
+#surveyModal h2 {
+  font-size: 29px;
+  color: #fff;
+}
+#surveyModal h3 {
+  margin: 40px 0;
+}
+
+/* Estilos para las preguntas de la encuesta */
+#surveyModal p {
+  font-size: 18px;
+  color: #000; /* Texto negro */
+  background-color: #fff; /* Fondo blanco */
+  border: 1px solid #970000; /* Borde de color vino */
+  border-radius: 0px 15px;
+  padding: 10px;
+  margin: 30px 0;
+  margin-top: 30px;
+  text-align: left; /* Alinea el texto a la izquierda */
+}
+
+/* Estilos para las respuestas de las preguntas */
+#surveyModal label {
+  display: block;
+  font-size: 18px;
+  color: #000; /* Texto negro */
+  margin: 10px 0;
+  text-align: left; /* Alinea el texto a la izquierda */
+}
+
+#surveyModal #submitSurvey {
+  background-color: #970000; /* Color vino */
+  color: #fff; /* Texto blanco */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 20px;
+  margin-top: 20px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+#surveyModal #submitSurvey:hover {
+  background-color: #a51945; /* Cambia el color al pasar el mouse */
+}
+
+/* Asegúrate de que el modal de encuesta no afecte a otros elementos */
+#surveyModal * {
+  box-sizing: content-box;
+}
+
+/* Estilos para los botones de respuestas (radio buttons) */
+#surveyModal input[type="radio"] {
+  margin-right: 5px;
 }

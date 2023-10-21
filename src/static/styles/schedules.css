@@ -68,12 +68,14 @@ main {
   width: calc(50% - 20px);
   margin-right: 20px;
   box-sizing: border-box;
+  text-align: center;
 }
 
 .horario-section h2 {
   font-size: 24px;
   margin-bottom: 20px;
   color: #333;
+  text-align: center; /* Añade esta línea para centrar el texto */
 }
 
 /* Estilos para los botones */
@@ -208,4 +210,18 @@ h4 {
   overflow: auto;
   margin-top: 20px;
   box-sizing: border-box;
+  text-align: center;
 }
+/* Estilo para la tabla de horarios */
+#horario-table {
+  border-collapse: separate; /* Establece el modelo de colapsado */
+  border-spacing: 10px; /* Añade espacio entre las celdas */
+}
+
+/* Estilos para las celdas de la tabla */
+#horario-table td {
+  padding: 10px; /* Agrega un espacio interno dentro de las celdas */
+  background-color: #fff; /* Fondo blanco para las celdas */
+  border: 1px solid #ccc; /* Borde ligero alrededor de las celdas */
+}
+

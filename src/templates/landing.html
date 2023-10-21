@@ -14,23 +14,23 @@
          <img src="{{ url_for('static', filename='icons/gCLogo.png') }}" alt="Logo de tu empresa" class="logo">
          <div>
             <h1>Bienvenido a GarzaCheck</h1>
-            <p>Administra tus calificaciones, faltas y tareas de manera eficiente.</p>
+            <p>Administra tu vida académica de manera eficiente.</p>
          </div>
         <a href="{{ url_for('login') }}" class="button-login">Iniciar sesión con Google</a>
     </header>
     
     <section id="features">
         <div class="feature">
-            <h2>Historial de Calificaciones</h2>
-            <p>Visualiza y gestiona tus calificaciones de forma sencilla.</p>
+            <h2>Administrador de horarios</h2>
+            <p>Visualiza y gestiona tus clases de forma sencilla.</p>
         </div>
         <div class="feature">
-            <h2>Seguimiento de Faltas</h2>
-            <p>Controla tu asistencia y registra tus faltas.</p>
+            <h2>Predicción de calificaciones</h2>
+            <p>Obtén un estimado de tus siguientes promedios de acuerdo a tu rendimiento.</p>
         </div>
         <div class="feature">
-            <h2>Agenda de Tareas</h2>
-            <p>Mantén un registro de tus tareas y fechas de entrega.</p>
+            <h2>Estrategia de rendimiento</h2>
+            <p>Mejora tu rendimiento escolar descubriendo tus debilidades.</p>
         </div>
     </section>
     
@@ -39,19 +39,19 @@
             <div class="step step-bg" style="background-image: url('static/icons/login.png');">
                 <div class="step-content">
                     <h2>Paso 1</h2>
-                    <p>Regístrate en GarzaCheck con tu cuenta de Google.</p>
+                    <p>Regístrate en GarzaCheck con tu cuenta institucional.</p>
                 </div>
             </div>
             <div class="step step-bg" style="background-image: url('static/icons/menu.png');">
                 <div class="step-content">
                     <h2>Paso 2</h2>
-                    <p>Gestiona tus calificaciones y registra tus faltas de manera sencilla.</p>
+                    <p>Confirma que tu información personal sea correcta.</p>
                 </div>
             </div>
             <div class="step step-bg" style="background-image: url('static/icons/manage.png');">
                 <div class="step-content">
                     <h2>Paso 3</h2>
-                    <p>Mantén un registro de tus tareas y fechas de entrega.</p>
+                    <p>Pon en marcha una estrategia para gestionar tus horarios y calificaciones de manera efectiva.</p>
                 </div>
             </div>
         </div>
@@ -65,7 +65,7 @@
         // JavaScript para controlar el carrusel de texto
         const carousel = document.querySelector('.carousel');
         const steps = document.querySelectorAll('.step');
-        const interval = 3000; // Cambio de paso cada 3 segundos
+        const interval = 3500; // Cambio de paso cada 3 segundos
         let index = 0;
 
         function changeStep() {

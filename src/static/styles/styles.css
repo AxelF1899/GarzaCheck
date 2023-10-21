@@ -30,6 +30,10 @@ font-size: 35px;
 margin-bottom: 20px;
 text-align: center;
 }
+header p{
+  text-align: center;
+  font-size: 19px;
+}
 .logo{
   position: absolute;
   left: 50px;
@@ -48,7 +52,7 @@ text-align: center;
   padding: 20px;
   background-color: #fff; /* Fondo blanco */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
-  border-radius: 20px;
+  border-radius: 30px 5px;
   transition: transform 0.2s ease-in-out;
 }
 
@@ -101,16 +105,16 @@ text-align: center;
 }
 
 .step {
-  border-radius: 30px;
+  border-radius: 30px 5px;
 }
 .step-content {
-  width: 50%;
+  color: #fff;
+  width: 100%;
   padding: 20px;
   text-align: center;
-  background-color: rgba(255, 255, 255, 0.2); /* Fondo transparente */
+  background-color: rgba(0, 0, 0, 0.607); /* Fondo transparente */
   backdrop-filter: blur(10px); /* Efecto glassmorphism */
-  border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
 }
 
 .step h2 {

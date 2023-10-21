@@ -4,14 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Información Personal</title>
-    <!-- Agrega enlaces a hojas de estilo si es necesario -->
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/personal_info.css') }}">
 
 </head>
 <body>
     <header>
         <a href="/home">
-            <!-- Logo o título -->
             <img
                 src="{{ url_for('static', filename='icons/gCLogo.png') }}"
                 alt="Logo de tu empresa"
@@ -19,7 +17,6 @@
             />
         </a>
         <h1>GarzaCheck</h1>
-        <!-- Botón para cerrar sesión -->
         <form action="/logout" >
           <input type="submit" value="Cerrar Sesión" class="logout-button" />
         </form>
@@ -30,37 +27,38 @@
     <main>
         <section class="user-section">
             <h2>Información Personal</h2>
+            <h3>Verifica que tus datos sean correctos</h3>
+            <p>{{first_name}} {{father_lastname}} {{mother_lastname}}</p>
             <p>Grupo: {{ grupo }}</p>
-            <p>Número de Cuenta: {{ numero_cuenta }}</p>
+            <p>Número de Cuenta: {{ account_number }}</p>
             <p>Semestre: {{ semestre }}</p>
             <p>Carrera: {{ carrera }}</p>
-            <!-- Agrega más campos de información personal si es necesario -->
-            
-            <!-- Agrega un formulario para editar la información personal -->
+
             <form action="/editar_informacion_personal" method="POST">
-                <!-- Campos de formulario para editar la información -->
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" value="{{ first_name }}" required>
+
+                <label for="apellido_paterno">Apellido paterno:</label>
+                <input type="text" id="apellido_paterno" name="apellido_paterno" value="{{ father_lastname }}" required>
+
+                <label for="apellido_materno">Apellido materno:</label>
+                <input type="text" id="apellido_materno" name="apellido_materno" value="{{ mother_lastname }}" required>
+
+                <label for="carrera">Carrera:</label>
+                <input type="text" id="carrera" name="carrera" value="{{ carrera }}" required>
+
                 <label for="grupo">Grupo:</label>
                 <input type="text" id="grupo" name="grupo" value="{{ grupo }}" required>
-                
-                <label for="numero_cuenta">Número de Cuenta:</label>
-                <input type="text" id="numero_cuenta" name="numero_cuenta" value="{{ numero_cuenta }}" required>
                 
                 <label for="semestre">Semestre:</label>
                 <input type="text" id="semestre" name="semestre" value="{{ semestre }}" required>
                 
-                <label for="carrera">Carrera:</label>
-                <input type="text" id="carrera" name="carrera" value="{{ carrera }}" required>
-                
-                <!-- Botón para enviar el formulario -->
                 <input type="submit" value="Guardar Cambios">
             </form>
         </section>
     </main>
 
     <footer>
-        <!-- Tu pie de página -->
     </footer>
-
-    <!-- Agrega el código JavaScript aquí si es necesario -->
 </body>
 </html>
