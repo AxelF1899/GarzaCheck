@@ -1,4 +1,4 @@
-/* Reset de estilos para asegurarse de que los navegadores no apliquen estilos predeterminados */
+
 * {
   margin: 0;
   padding: 0;
@@ -10,12 +10,12 @@ p{
 header {
     width: 100%;
     height: 150px;
-    background-color: rgb(151, 0, 0); /* Color vino elegante */
-    color: #fff; /* Texto blanco */
-    display: flex; /* Muestra los elementos de izquierda a derecha */
-    justify-content: space-between; /* Distribuye los elementos a lo largo del eje horizontal */
-    align-items: center; /* Centra verticalmente los elementos */
-    padding: 20px; /* Ajusta el espaciado interno */
+    background-color: rgb(151, 0, 0);
+    color: #fff; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    padding: 20px; 
   }
 
 header h1 {
@@ -25,10 +25,10 @@ header h1 {
 
 .logout-button {
   position: absolute;
-  top: 10px; /* Ajusta la distancia superior según tu preferencia */
-  right: 10px; /* Ajusta la distancia derecha según tu preferencia */
-  background-color: rgb(151, 0, 0); /* Color de fondo rojo (puedes cambiarlo) */
-  color: #fff; /* Texto blanco */
+  top: 10px; 
+  right: 10px;
+  background-color: rgb(151, 0, 0); 
+  color: #fff; 
   padding: 10px 15px;
   border: none;
   border-radius: 5px;
@@ -37,10 +37,10 @@ header h1 {
   transition: background-color 0.3s ease-in-out;
 }
 
-/* Estilos generales para el cuerpo de la página */
+
 body {
   font-family: Arial, sans-serif;
-  background-color: #f2f2f2; /* Fondo gris claro */
+  background-color: #f2f2f2; 
   
 }
 
@@ -53,16 +53,16 @@ main{
 }
 
 
-/* Estilos para la sección de información personal */
+
 .user-section {
   text-align: center;
   max-width: 800px;
   padding: 20px;
-  background-color: #fff; /* Fondo blanco */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  background-color: #fff; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
   border-radius: 20px;
   transition: transform 0.2s ease-in-out;
-  margin: 50px; /* Espacio entre la sección y otros elementos */
+  margin: 50px; 
 }
 
 .user-section:hover {
@@ -76,8 +76,6 @@ main{
 .user-section h3{
   margin: 20px;
 }
-
-/* Estilos para el formulario de edición */
 form {
   display: flex;
   flex-direction: column;
@@ -99,7 +97,7 @@ input[type="text"] {
 }
 
 input[type="submit"] {
-  background-color: rgb(151, 0, 0); /* Color vino elegante */
+  background-color: rgb(151, 0, 0); 
   color: #fff;
   padding: 10px 20px;
   border: none;
@@ -111,13 +109,12 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-  background-color: #a51945; /* Cambia el color al pasar el mouse */
+  background-color: #a51945; 
 }
 
-/* Estilos para el pie de página */
 footer {
-  background-color: rgb(151, 0, 0); /* Color vino elegante */
-  color: #fff; /* Texto blanco */
+  background-color: rgb(151, 0, 0); 
+  color: #fff;
   text-align: center;
   padding: 10px 0;
   border-top: 2px solid #fff;

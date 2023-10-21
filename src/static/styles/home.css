@@ -1,22 +1,22 @@
-/* Reset de estilos para asegurarse de que los navegadores no apliquen estilos predeterminados */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Estilos generales para el cuerpo de la página */
+
 body {
   font-family: Arial, sans-serif;
-  background-color: #f2f2f2; /* Fondo gris claro */
+  background-color: #f2f2f2; 
   margin: 0;
   padding: 0;
 }
 
-/* Estilos para el encabezado */
+
 header {
-    background-color: rgb(151, 0, 0); /* Color vino elegante */
-    color: #fff; /* Texto blanco */
+    background-color: rgb(151, 0, 0); /* hex #97000 */
+    color: #fff; 
     text-align: center;
     padding: 35px 0;
   }
@@ -32,11 +32,11 @@ header {
   font-size: large;
 }
 
-/* Estilos para la sección de usuario */
+
 .user-section {
-  background-color: #fff; /* Fondo blanco */
+  background-color: #fff; 
   min-height: 100%;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
   border-radius: 10px;
   padding: 20px;
   text-align: center;
@@ -49,15 +49,15 @@ header {
   margin-bottom: 10px;
 }
 
-/* Estilos para el menú desplegable */
+
 .dropdown {
   position: relative;
   display: inline-block;
 }
 
 .dropbtn {
-  background-color: #970000; /* Color vino con transparencia */
-  color: #fff; /* Texto blanco */
+  background-color: #970000; 
+  color: #fff; 
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
@@ -77,7 +77,7 @@ header {
 }
 
 .dropdown-content a {
-  color: #333; /* Texto gris oscuro */
+  color: #333;
   padding: 12px 16px;
   text-decoration: none;
   display: block;
@@ -91,7 +91,7 @@ header {
     0,
     0,
     0.2
-  ); /* Cambia el color al pasar el mouse */
+  ); 
 }
 
 .dropdown:hover .dropdown-content {
@@ -99,22 +99,22 @@ header {
 }
 
 .dropdown:hover .dropbtn {
-  background-color: #a51945; /* Cambia el color al pasar el mouse */
+  background-color: #a51945; 
 }
 
-/* Estilos para el pie de página */
+
 footer {
-  background-color: rgb(151, 0, 0); /* Color vino elegante */
-  color: #fff; /* Texto blanco */
+  background-color: rgb(151, 0, 0); /*hex #97000 */
+  color: #fff; 
   text-align: center;
   padding: 10px 0;
   border-top: 2px solid #fff;
   font-size: 14px;
 }
-/* Estilos para el botón de cambiar foto de perfil */
+
 .profile-button {
-    background-color: rgb(151, 0, 0); /* Color azul */
-    color: #fff; /* Texto blanco */
+    background-color: rgb(151, 0, 0); 
+    color: #fff; 
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
@@ -125,27 +125,27 @@ footer {
 }
 
 .profile-button:hover {
-    background-color: #a51945; /* Cambia el color al pasar el mouse */
+    background-color: #a51945; 
 }
 
-/* Estilos para el input de carga de imagen */
+
 .profile-image-input {
-    display: none; /* Oculta el input de carga */
+    display: none; 
 }
 
-/* Estilos para el icono de cámara */
+
 .profile-camera-icon {
     font-size: 20px;
     margin-right: 5px;
 }
 
-/* Estilos para la imagen de perfil */
+
 .user-profile-image {
-    max-width: 150px; /* Tamaño máximo de la imagen */
+    max-width: 150px; 
     max-height: 150px;
-    border-radius: 50%; /* Forma redonda */
+    border-radius: 50%; 
     margin-top: 20px;
-    border: 3px solid rgba(151, 0, 0, 0.8); /* Borde azul */
+    border: 3px solid rgba(151, 0, 0, 0.8); 
 }
 .logo {
     position: absolute;
@@ -153,13 +153,13 @@ footer {
     top: 20px;
   }
 
-  /* Estilos para el botón de cerrar sesión en la esquina superior derecha */
+  
 .logout-button {
     position: absolute;
-    top: 10px; /* Ajusta la distancia superior según tu preferencia */
-    right: 10px; /* Ajusta la distancia derecha según tu preferencia */
-    background-color: #970000; /* Color de fondo rojo (puedes cambiarlo) */
-    color: #fff; /* Texto blanco */
+    top: 10px; 
+    right: 10px;
+    background-color: #970000; 
+    color: #fff; 
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
@@ -169,7 +169,7 @@ footer {
 }
 
 .logout-button:hover {
-    background-color: #CC0000; /* Cambia el color al pasar el mouse */
+    background-color: #CC0000; 
 }
 
 @keyframes rellenar{
@@ -207,7 +207,7 @@ circle{
   stroke-dasharray: 100 100;
   stroke: #AAA;
 }
-circle:nth-child(2){ /* el segundo círculo, es el que se ve por encima del anterior y debe tener el color mas intenso y el area del porcentaje */
+circle:nth-child(2){ 
   stroke: var(--color);
   stroke-dasharray: 0 100;
   animation: rellenar 4s ease-in-out forwards;
@@ -227,8 +227,8 @@ circle:nth-child(2){ /* el segundo círculo, es el que se ve por encima del ante
   background-color: rgba(0, 0, 0, 0.4);
   z-index: 1;
   display: flex;
-  justify-content: center; /* Centra horizontalmente */
-  align-items: center; /* Centra verticalmente */
+  justify-content: center; 
+  align-items: center; 
 }
 
 #surveyModal .modal-content{
@@ -237,9 +237,9 @@ circle:nth-child(2){ /* el segundo círculo, es el que se ve por encima del ante
   padding: 30px;
   text-align: center;
   color: #000;
-  max-width: 40%; /* Ancho máximo del contenido del modal */
-  max-height: 70%; /* Altura máxima del contenido del modal */
-  overflow-y: auto; /* Agrega una barra de desplazamiento vertical si es necesario */
+  max-width: 40%; 
+  max-height: 70%; 
+  overflow-y: auto;
 }
 
 #surveyModal .mini-header{

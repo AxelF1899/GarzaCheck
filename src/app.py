@@ -100,7 +100,6 @@ def editar_informacion_personal():
     if request.method == 'POST':
         # Obtención de los datos enviados por el formulario
         grupo = request.form['grupo']
-        numero_cuenta = request.form['numero_cuenta']
         semestre = request.form['semestre']
         carrera = request.form['carrera']
         return redirect(url_for('informacion_personal'))

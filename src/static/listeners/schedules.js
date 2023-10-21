@@ -1,20 +1,20 @@
-// Espera a que el documento HTML se cargue completamente
+
 document.addEventListener("DOMContentLoaded", function () {
-  // Manejo del botón "Agregar Materia"
+  
   const agregarMateriaButton = document.getElementById("agregar-materia");
   agregarMateriaButton.addEventListener("click", function (event) {
     event.preventDefault();
 
-    // Creación de la sección de materia
+    
     const horarioSection = document.querySelector(".horario-section");
     const materiaSection = document.createElement("div");
     materiaSection.classList.add("materia-section");
 
-    // Generación de un número único para la materia
+    
     const numMaterias =
       horarioSection.querySelectorAll(".materia-section").length + 1;
 
-    // Contenido de la sección de materia
+    
     materiaSection.innerHTML = `
       <h3>Materia ${numMaterias}</h3>
       <form>
@@ -43,32 +43,32 @@ document.addEventListener("DOMContentLoaded", function () {
       </form>
     `;
 
-    // Agregar la sección de materia a la sección de horarios
+    
     horarioSection.insertBefore(materiaSection, agregarMateriaButton);
 
-    // Manejo del botón "Agregar Horario" dentro de la sección de materia
+    
     const agregarHorarioButton =
       materiaSection.querySelector(".agregar-horario");
     agregarHorarioButton.addEventListener("click", function (event) {
       event.preventDefault();
 
-      // Clonar un horario de día
+      
       const horarioDiv = materiaSection.querySelector(".horario");
       const horarioDiaClone = horarioDiv
         .querySelector(".horario-dia")
         .cloneNode(true);
 
-      // Limpia los campos de hora inicio y fin
+      
       const horaInicioInput = horarioDiaClone.querySelector("#hora_inicio");
       const horaFinInput = horarioDiaClone.querySelector("#hora_fin");
       horaInicioInput.value = "";
       horaFinInput.value = "";
 
-      // Agregar el horario de día clonado
+      
       horarioDiv.appendChild(horarioDiaClone);
     });
 
-    // Manejo de la eliminación de horarios de día
+    
     const horariosDiaDivs = materiaSection.querySelectorAll(".horario-dia");
     horariosDiaDivs.forEach(function (horarioDiaDiv) {
       const eliminarHorarioButton =
@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Función para generar la tabla de horarios en el formato deseado
+  
   function generarTabla() {
     const horarioSection = document.querySelector(".horario-section");
     const materiaSections = horarioSection.querySelectorAll(".materia-section");
@@ -150,14 +150,14 @@ document.addEventListener("DOMContentLoaded", function () {
         const horaInicio = horaInicioInput.value;
         const horaFin = horaFinInput.value;
     
-        // Validar que las horas de inicio y finalización sean en punto
+        
         if (!validarHoraEnPunto(horaInicio) || !validarHoraEnPunto(horaFin)) {
           alert("Las horas de inicio y finalización deben ser en punto (por ejemplo, 7:00, 8:00, 9:00).");
-          return; // Detener la generación de la tabla si no son horas en punto
+          return; 
         }
     
         const rowIndexInicio = horas.indexOf(horaInicio);
-        const rowIndexFin = horas.indexOf(horaFin) - 1; // Restar 1 para obtener la hora anterior
+        const rowIndexFin = horas.indexOf(horaFin) - 1; 
     
         if (rowIndexInicio !== -1 && rowIndexFin !== -1) {
           const colIndex = dias.indexOf(dia) + 1;
@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Llamar a la función para generar la tabla en el formato deseado cuando se hace clic en "Imprimir Horario"
+  
   const imprimirHorarioButton = document.getElementById("imprimir-horario");
   imprimirHorarioButton.addEventListener("click", generarTabla);
   

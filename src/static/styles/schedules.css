@@ -1,25 +1,23 @@
-/* Reset de estilos para asegurarse de que los navegadores no apliquen estilos predeterminados */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Estilos generales para el cuerpo de la página */
 body {
   font-family: Arial, sans-serif;
-  background-color: #f2f2f2; /* Fondo gris claro */
+  background-color: #f2f2f2;
 }
-/* Estilos para el encabezado */
 header {
     width: 100%;
     height: 150px;
-    background-color: rgb(151, 0, 0); /* Color vino elegante */
-    color: #fff; /* Texto blanco */
-    display: flex; /* Muestra los elementos de izquierda a derecha */
-    justify-content: space-between; /* Distribuye los elementos a lo largo del eje horizontal */
-    align-items: center; /* Centra verticalmente los elementos */
-    padding: 20px; /* Ajusta el espaciado interno */
+    background-color: rgb(151, 0, 0);
+    color: #fff; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    padding: 20px;
   }
 
 header h1 {
@@ -29,13 +27,13 @@ header h1 {
 
 
 
-/* Estilos para el botón de cerrar sesión en el encabezado */
+
 .logout-button {
   position: absolute;
-  top: 10px; /* Ajusta la distancia superior según tu preferencia */
-  right: 10px; /* Ajusta la distancia derecha según tu preferencia */
-  background-color: rgb(151, 0, 0); /* Color de fondo rojo (puedes cambiarlo) */
-  color: #fff; /* Texto blanco */
+  top: 10px; 
+  right: 10px; 
+  background-color: rgb(151, 0, 0); 
+  color: #fff; 
   padding: 10px 15px;
   border: none;
   border-radius: 5px;
@@ -44,11 +42,11 @@ header h1 {
   transition: background-color 0.3s ease-in-out;
 }
 
-/* Estilo para el botón enlace al pasar el mouse */
+
 .logout-button:hover {
-  background-color: #a51945; /* Cambia el color al pasar el mouse */
+  background-color: #a51945; 
 }
-/* Estilo para el contenedor principal (main) */
+
 main {
   display: flex;
   justify-content: space-between;
@@ -59,7 +57,7 @@ main {
   box-sizing: border-box;
 }
 
-/* Estilo para la sección de horarios */
+
 .horario-section {
   background-color: #fff;
   padding: 20px;
@@ -75,10 +73,10 @@ main {
   font-size: 24px;
   margin-bottom: 20px;
   color: #333;
-  text-align: center; /* Añade esta línea para centrar el texto */
+  text-align: center; 
 }
 
-/* Estilos para los botones */
+
 .button {
   display: inline-block;
   padding: 10px 20px;
@@ -96,7 +94,7 @@ main {
   background-color: #a51945;
 }
 
-/* Estilos para el botón de impresión */
+
 #imprimir-horario {
   margin: 15px;
   padding: 10px 20px;
@@ -143,7 +141,7 @@ main {
 .agregar-horario:hover{
   background-color: #a51945;
 }
-/* Estilos para el formulario de materia */
+
 .materia-section {
   background-color: #f7f7f7;
   padding: 20px;
@@ -200,7 +198,7 @@ h4 {
 #hora_fin{
   width: fit-content;
 }
-/* Estilo para el contenedor de la tabla */
+
 #horario-table-container {
   background-color: #fff;
   padding: 20px;
@@ -212,16 +210,13 @@ h4 {
   box-sizing: border-box;
   text-align: center;
 }
-/* Estilo para la tabla de horarios */
+
 #horario-table {
-  border-collapse: separate; /* Establece el modelo de colapsado */
-  border-spacing: 10px; /* Añade espacio entre las celdas */
+  border-collapse: separate;
+  border-spacing: 10px; 
 }
-
-/* Estilos para las celdas de la tabla */
 #horario-table td {
-  padding: 10px; /* Agrega un espacio interno dentro de las celdas */
-  background-color: #fff; /* Fondo blanco para las celdas */
-  border: 1px solid #ccc; /* Borde ligero alrededor de las celdas */
+  padding: 10px; 
+  background-color: #fff; 
+  border: 1px solid #ccc; 
 }
-
