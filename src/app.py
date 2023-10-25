@@ -1,9 +1,8 @@
 from flask import Flask, redirect, url_for, session, render_template, request
 from flask_oauthlib.client import OAuth
-from flask_sqlalchemy import SQLAlchemy
+from models import db, Alumno
 
 app = Flask(__name__)
-
 app.secret_key = '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' #Guardar y borrar por ahora
 
 scopes = ['https://www.google.com/auth/userinfo.profile', 'https://www.google.com/auth/userinfo.email']
@@ -80,35 +79,107 @@ def authorized():
 
 @app.route('/home')
 def home():
-    first_name = session.get('first_name', 'Nombre no disponible')
-    father_lastname = session.get('father_lastname', 'Apellido paterno no disponible')
-    mother_lastname = session.get('mother_lastname', 'Apellido materno no disponible')
-    account_number = session.get('account_number', 'Número de cuenta no disponible')
+    numero_cuenta = session.get('account_number')
+    existing_user = Alumno.query.filter_by(id_numero_cuenta=numero_cuenta).first()
+    if existing_user:
+        
+        first_name = existing_user.nombres_alumno
+        father_lastname = existing_user.apellido_paterno
+        mother_lastname = existing_user.apellido_materno
+        account_number = existing_user.id_numero_cuenta
+        avg = existing_user.promedio
+        
 
-    return render_template('home.html', first_name=first_name, father_lastname=father_lastname, mother_lastname=mother_lastname, account_number=account_number)
+    else:
+        
+        first_name = 'Nombre no disponible'
+        father_lastname = 'Apellido paterno no disponible'
+        mother_lastname = 'Apellido materno no disponible'
+        account_number = 'Número de cuenta no disponible'
+        avg = 0.0
+        
+
+    return render_template('home.html', first_name=first_name, father_lastname=father_lastname, mother_lastname=mother_lastname, account_number=account_number, avg = avg)
 
 @app.route('/informacion_personal')
 def informacion_personal():
-    first_name = session.get('first_name', 'Nombre no disponible')
-    father_lastname = session.get('father_lastname', 'Apellido paterno no disponible')
-    mother_lastname = session.get('mother_lastname', 'Apellido materno no disponible')
-    account_number = session.get('account_number', 'Número de cuenta no disponible')
+
+    numero_cuenta = session.get('account_number')
+    existing_user = Alumno.query.filter_by(id_numero_cuenta=numero_cuenta).first()
+
+    if existing_user:
+        
+        first_name = existing_user.nombres_alumno
+        father_lastname = existing_user.apellido_paterno
+        mother_lastname = existing_user.apellido_materno
+        account_number = existing_user.id_numero_cuenta
+        avg = existing_user.promedio
+        
+
+    else:
+        
+        first_name = 'Nombre no disponible'
+        father_lastname = 'Apellido paterno no disponible'
+        mother_lastname = 'Apellido materno no disponible'
+        account_number = 'Número de cuenta no disponible'
+        avg = 0.0
+
     return render_template('personal_info.html', first_name=first_name, father_lastname=father_lastname, mother_lastname=mother_lastname, account_number=account_number, semestre = 1, grupo =1)
 
 @app.route('/editar_informacion_personal', methods=['POST'])
 def editar_informacion_personal():
     if request.method == 'POST':
-        # Obtención de los datos enviados por el formulario
+        
+        nombre = request.form['nombre']
+        apellido_paterno = request.form['apellido_paterno']
+        apellido_materno = request.form['apellido_materno']
+        carrera = request.form['carrera']
         grupo = request.form['grupo']
         semestre = request.form['semestre']
-        carrera = request.form['carrera']
-        return redirect(url_for('informacion_personal'))
+        numero_cuenta = session.get('account_number')  
+        promedio = request.form['promedio']
+
+        
+        existing_user = Alumno.query.filter_by(id_numero_cuenta=numero_cuenta).first()
+
+        if existing_user:
+            
+            existing_user.nombres_alumno = nombre
+            existing_user.apellido_paterno = apellido_paterno
+            existing_user.apellido_materno = apellido_materno
+            existing_user.programa_educativo = carrera
+            existing_user.grupo = grupo
+            existing_user.semestre = semestre
+            existing_user.promedio = promedio
+
+            
+            db.session.commit()
+
+            return redirect(url_for('home'))
+
+        else:
+            
+            alumno = Alumno(
+                id_numero_cuenta=numero_cuenta,
+                nombres_alumno=nombre,
+                apellido_paterno=apellido_paterno,
+                apellido_materno=apellido_materno,
+                programa_educativo=carrera,
+                grupo=grupo,
+                semestre=semestre
+            )
+
+           
+            db.session.add(alumno)
+            db.session.commit()
+
+        return redirect(url_for('home'))
 
 @app.route('/horarios')
 def horarios():
     return render_template('schedules.html')
 
 if __name__ == '__main__':
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:@localhost/project5'
+    db.init_app(app)  
     app.run(debug=True)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:4202@localhost/project5'
-    db = SQLAlchemy(app)
