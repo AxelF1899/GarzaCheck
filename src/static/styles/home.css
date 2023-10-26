@@ -131,6 +131,7 @@ footer {
 
 .profile-image-input {
     display: none; 
+
 }
 
 
@@ -141,11 +142,14 @@ footer {
 
 
 .user-profile-image {
-    max-width: 150px; 
-    max-height: 150px;
+    width: 45%; 
+    min-height: 250px;
+    max-height: 250px;
     border-radius: 50%; 
     margin-top: 20px;
     border: 3px solid rgba(151, 0, 0, 0.8); 
+    overflow: hidden;
+    object-fit: cover;
 }
 .logo {
     position: absolute;
@@ -294,10 +298,9 @@ circle:nth-child(2){
 }
 
 #surveyModal #submitSurvey:hover {
-  background-color: #a51945; /* Cambia el color al pasar el mouse */
+  background-color: #a51945;
 }
 
-/* Asegúrate de que el modal de encuesta no afecte a otros elementos */
 #surveyModal * {
   box-sizing: content-box;
 }

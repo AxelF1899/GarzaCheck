@@ -179,6 +179,21 @@ def editar_informacion_personal():
 def horarios():
     return render_template('schedules.html')
 
+@app.route('/prediction', methods=['GET', 'POST'])
+def prediction():
+    if request.method == 'POST':
+        # Aquí puedes agregar la lógica de predicción de promedio
+        # Recuperar los datos del formulario, realizar la predicción y mostrar el resultado
+        current_gpa = float(request.form['current-gpa'])
+        past_semester_gpa = float(request.form['past-semester-gpa'])
+        # Realiza la predicción aquí y almacena el resultado en una variable
+
+        # Retorna la página de predicción con el resultado
+        return render_template('prediction.html', predicted_gpa=5)
+
+    # Si es una solicitud GET, simplemente muestra el formulario
+    return render_template('prediction.html')
+
 if __name__ == '__main__':
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:@localhost/project5'
     db.init_app(app)  
