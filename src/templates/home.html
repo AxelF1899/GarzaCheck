@@ -18,7 +18,7 @@
     <header>
       <img
         src="{{ url_for('static', filename='icons/gCLogo.png') }}"
-        alt="Logo de tu empresa"
+        alt="otro fokin logo"
         class="logo"
       />
       
@@ -28,13 +28,26 @@
       <h1>GarzaCheck</h1>
     </header>
 
-    <div id="surveyModal" class="modal">
+    <div id="surveyModal" class="modal" style="display: none;">
+      <!-- Alertas!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+  <div class="alert-container">
+    {% for category, message in messages %}
+      <div class="alert alert-{{ category }}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+{% endwith %}
+
       <div class="modal-content">
         <div class="mini-header">
           <h2>Mejora de rendimiento académico</h2>
         </div>
         <h3>¡Gracias por ayudarnos a mejorar! Esta encuesta nos permite conocer más sobre tu bienestar y tu desempeño académico.</h3>
-        <form id="surveyForm">
+        <form id="surveyForm" method="POST" action="/procesar_encuesta">
           <!-- Preguntas sobre Estrés -->
           <p>1. ¿Cómo describirías tu nivel de estrés en general?</p>
             <label><input type="radio" name="q1" value="5"> Muy alto</label>
@@ -129,9 +142,9 @@
             <label><input type="radio" name="q14" value="4"> A diario</label>
             <label><input type="radio" name="q14" value="3"> Varias veces por semana</label>
             <label><input type="radio" name="q14" value="2"> Ocasionalmente</label>
-            <label><input type="radio" name="q14" value="1"> Casi nunca</label>
+            <label><input type="radio" name="q14" value="1"> Nunca</label>
 
-          <button type="button" id="submitSurvey">Enviar</button>
+          <button type="submit" id="submitSurveyButton">Enviar</button>
         </form>
       </div>
     </div>
@@ -144,9 +157,8 @@
         <div class="dropdown">
           <button class="dropbtn"><i class="fas fa-bars"></i> Menú</button>
           <div class="dropdown-content">
-            <a href="#">Mi estrategia</a>
             <a href="{{ url_for('prediction') }}">Predicción de promedio</a>
-            <a href="#">Top docentes</a>
+            <a href="{{ url_for('top_docentes') }}">Top docentes</a>
             <a href="{{ url_for('informacion_personal') }}">Información personal</a>
             <a href="{{ url_for('horarios') }}">Gestionar horario</a>
 
@@ -185,6 +197,10 @@
         
 
       </section>
+      <section class="estrategia-section">
+        <h2>Estrategia para Mejorar el Rendimiento Escolar</h2>
+        <p>{{ estrategia }}</p>
+    </section>
     </main>    
 
     <footer>
@@ -208,20 +224,34 @@
         profileImageInput.click();
       }
     </script>
-    <script>
-      //modal recordar cambiarlo para que aparezca cada 7 dias 
-window.onload = function() {
-    document.getElementById("surveyModal").style.display = "flex";
-  };
-  
-  document.getElementById("submitSurvey").onclick = function() {
+
+
+<script>
+  function showSurveyModalWithDelay() {
+    const surveyModal = document.getElementById("surveyModal");
+
+    setTimeout(function () {
+      surveyModal.style.display = "flex";
+    }, 300); 
+  }
+
+  function hasAnsweredSurveyRecently() {
+    const currentDate = new Date();
+    const lastSurveyDate = new Date("{{ last_survey_date }}");
+    const timeDiff = currentDate - lastSurveyDate;
+    const daysDiff = timeDiff / (1000 * 60 * 60 * 24);
+    if (daysDiff > 30) {
+      showSurveyModalWithDelay(); 
+    }
+  }
+
+  window.onload = hasAnsweredSurveyRecently;
+
+  document.getElementById("submitSurveyButton").onclick = function() {
     document.getElementById("surveyModal").style.display = "none";
   };
-  
-  document.getElementById("closeSurveyModal").onclick = function() {
-    document.getElementById("surveyModal").style.display = "none";
-  };
-  
-    </script>
+</script>
+
+
   </body>
 </html>

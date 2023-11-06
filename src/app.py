@@ -1,6 +1,9 @@
-from flask import Flask, redirect, url_for, session, render_template, request
+from flask import Flask, redirect, url_for, session, render_template, request, jsonify,flash
 from flask_oauthlib.client import OAuth
-from models import db, Alumno
+from models import db, Alumno, Maestro
+from datetime import datetime, timedelta
+import time
+
 
 app = Flask(__name__)
 app.secret_key = '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' #Guardar y borrar por ahora
@@ -69,7 +72,7 @@ def authorized():
 
         account_number = int(user_email[2:8])
 
-        # Almacena los valores en la sesión para usarlos en otras rutas
+        ##################### Valores de la sesión activa ###############################
         session['first_name'] = first_name
         session['father_lastname'] = father_lastname
         session['mother_lastname'] = mother_lastname
@@ -77,29 +80,196 @@ def authorized():
 
     return redirect(url_for('home'))
 
-@app.route('/home')
-def home():
-    numero_cuenta = session.get('account_number')
-    existing_user = Alumno.query.filter_by(id_numero_cuenta=numero_cuenta).first()
-    if existing_user:
-        
-        first_name = existing_user.nombres_alumno
-        father_lastname = existing_user.apellido_paterno
-        mother_lastname = existing_user.apellido_materno
-        account_number = existing_user.id_numero_cuenta
-        avg = existing_user.promedio
-        
+@app.route('/sign_up', methods=['GET', 'POST'])
+def sign_up():
+    if request.method == 'POST':
+        account_number = request.form.get('account_number')
+        correo = request.form.get('correo')
 
+        existing_user = Alumno.query.filter_by(id_numero_cuenta=account_number).first()
+        if existing_user:
+            return "El número de cuenta ya está registrado"
+
+        existing_user = Alumno.query.filter_by(correo_electronico=correo).first()
+        if existing_user:
+            return "El correo ya está registrado"
+        
+        nombre = request.form.get('nombre')
+        apellido_paterno = request.form.get('apellido_paterno')
+        apellido_materno = request.form.get('apellido_materno')
+        telefono = request.form.get('telefono')
+        carrera = request.form.get('carrera')
+        grupo = request.form.get('grupo')
+        semestre = request.form.get('semestre')
+        promedio = request.form.get('promedio')
+        get_fecha_nacimiento = request.form.get('fecha_nacimiento')
+        fecha_nacimiento = datetime.strptime(get_fecha_nacimiento, '%Y-%m-%d')
+
+        new_user = Alumno(
+            id_numero_cuenta=account_number,
+            nombres_alumno=nombre,
+            apellido_paterno=apellido_paterno,
+            apellido_materno=apellido_materno,
+            correo_electronico=correo,
+            numero_telefono=telefono,
+            promedio=promedio,
+            programa_educativo = carrera,
+            grupo = grupo,
+            semestre = semestre,
+            fecha_nacimiento = fecha_nacimiento
+        )
+
+        db.session.add(new_user)
+        db.session.commit()
+
+        return redirect(url_for('landing_page'))
+
+    return render_template('sign_up.html')
+
+def determinar_estrategia(puntuacion):
+    if 14 <= puntuacion <= 20:
+        return '''Recuerda que cada paso que das, por pequeño que sea, te acerca a tus metas. Tu esfuerzo y dedicación son la clave para alcanzar el éxito. No importa cuántas veces te caigas, lo que realmente cuenta es cuántas veces te levantas y sigues adelante.
+
+Tu trabajo está haciendo una diferencia en la vida de los demás. Al ayudar a los demás, no solo estás mejorando sus vidas, sino que también estás mejorando la tuya. La bondad y la empatía que muestras hacia los demás son un reflejo de la increíble persona que eres.
+
+Así que sigue adelante, sigue trabajando duro y nunca dejes de creer en ti mismo. ¡Tú puedes hacerlo! 💪
+
+        Salud emocional:
+
+Practicar la autocompasión: Sé amable contigo mismo y reconoce que todos cometemos errores7.
+Expresar tus emociones de manera saludable: Busca formas seguras y constructivas de expresar tus sentimientos7.
+
+'''
+    elif 20 <= puntuacion <= 30:
+        return '''Sueño:
+
+Evitar las siestas largas durante el día: Si necesitas una siesta, intenta que sea corta y temprano en la tarde6.
+Limitar la ingesta de cafeína y alcohol: Ambos pueden interferir con la calidad del sueño6.
+
+Salud emocional:
+
+Practicar la autocompasión: Sé amable contigo mismo y reconoce que todos cometemos errores7.
+Expresar tus emociones de manera saludable: Busca formas seguras y constructivas de expresar tus sentimientos7.
+Desempeño escolar:
+'''
+    elif 30 <= puntuacion <= 40:
+        return '''Sueño:
+
+Evitar las siestas largas durante el día: Si necesitas una siesta, intenta que sea corta y temprano en la tarde6.
+Limitar la ingesta de cafeína y alcohol: Ambos pueden interferir con la calidad del sueño6.
+Salud emocional:
+
+Practicar la autocompasión: Sé amable contigo mismo y reconoce que todos cometemos errores7.
+Expresar tus emociones de manera saludable: Busca formas seguras y constructivas de expresar tus sentimientos7.
+Desempeño escolar:
+
+Tomar descansos regulares durante el estudio: Los descansos cortos pueden ayudar a mantener la concentración a largo plazo8.
+Pedir ayuda cuando sea necesario: No dudes en buscar ayuda de profesores o compañeros de clase si tienes dificultades con el material de estudio8.
+'''
+    elif 40 <= puntuacion <= 50:
+        return '''Salud emocional:
+Practicar la autogestión: Aprende a identificar y manejar tus emociones de manera efectiva3.
+Fomentar las relaciones interpersonales saludables: Mantén una red de apoyo social sólida y busca ayuda cuando la necesites3.
+Practicar la atención plena: La meditación y otras prácticas de atención plena pueden ayudarte a mantener un estado mental equilibrado4.
+'''
+    elif 50 <= puntuacion <= 57:
+        return '''Sueño:
+Establecer una rutina de sueño: Intenta acostarte y levantarte a la misma hora todos los días, incluso los fines de semana1.
+Evitar el uso de dispositivos electrónicos antes de dormir: La luz de las pantallas puede estimular la actividad cerebral y dificultar el sueño. Es aconsejable no usar el teléfono incluso dos horas antes de ir a dormir2.
+Crear un ambiente propicio para el sueño: Mantén tu habitación oscura, tranquila y a una temperatura cómoda1.
+
+Salud emocional:
+Practicar la autogestión: Aprende a identificar y manejar tus emociones de manera efectiva3.
+Fomentar las relaciones interpersonales saludables: Mantén una red de apoyo social sólida y busca ayuda cuando la necesites3.
+Practicar la atención plena: La meditación y otras prácticas de atención plena pueden ayudarte a mantener un estado mental equilibrado4.
+'''
     else:
-        
-        first_name = 'Nombre no disponible'
-        father_lastname = 'Apellido paterno no disponible'
-        mother_lastname = 'Apellido materno no disponible'
-        account_number = 'Número de cuenta no disponible'
-        avg = 0.0
-        
+        return '''Sueño:
+Establecer una rutina de sueño: Intenta acostarte y levantarte a la misma hora todos los días, incluso los fines de semana1.
+Evitar el uso de dispositivos electrónicos antes de dormir: La luz de las pantallas puede estimular la actividad cerebral y dificultar el sueño. Es aconsejable no usar el teléfono incluso dos horas antes de ir a dormir2.
+Crear un ambiente propicio para el sueño: Mantén tu habitación oscura, tranquila y a una temperatura cómoda1.
 
-    return render_template('home.html', first_name=first_name, father_lastname=father_lastname, mother_lastname=mother_lastname, account_number=account_number, avg = avg)
+Salud emocional:
+Practicar la autogestión: Aprende a identificar y manejar tus emociones de manera efectiva3.
+Fomentar las relaciones interpersonales saludables: Mantén una red de apoyo social sólida y busca ayuda cuando la necesites3.
+Practicar la atención plena: La meditación y otras prácticas de atención plena pueden ayudarte a mantener un estado mental equilibrado4.
+
+Desempeño escolar:
+Organizar el material de estudio: Tener un espacio de estudio ordenado y libre de distracciones puede ayudar a mejorar la concentración5.
+Utilizar técnicas de estudio efectivas: Experimenta con diferentes técnicas de estudio para encontrar las que mejor funcionen para ti5.
+Gestionar el tiempo de manera efectiva: Planifica tu tiempo de estudio y descanso para evitar el agotamiento5.'''
+
+
+@app.route('/home', methods=['GET', 'POST'])
+def home():
+    if request.method == 'POST':
+        numero_cuenta = session.get('account_number')
+        existing_user = Alumno.query.filter_by(id_numero_cuenta=numero_cuenta).first()
+
+        flash('Puntuación guardada en la base de datos.', 'success')
+        if existing_user:
+            existing_user.fecha_ultima_encuesta = datetime.now()
+            db.session.commit()
+
+        last_survey_date = existing_user.fecha_ultima_encuesta.strftime("%Y-%m-%dT%H:%M:%S")
+    else:
+        numero_cuenta = session.get('account_number')
+        existing_user = Alumno.query.filter_by(id_numero_cuenta=numero_cuenta).first()
+
+        if existing_user:
+            first_name = existing_user.nombres_alumno
+            father_lastname = existing_user.apellido_paterno
+            mother_lastname = existing_user.apellido_materno
+            account_number = existing_user.id_numero_cuenta
+            avg = existing_user.promedio
+
+            # Determinar la puntuación emocional y la estrategia correspondiente
+            puntuacion_emocional = existing_user.puntuacion_psicologica
+            estrategia = determinar_estrategia(puntuacion_emocional)
+        else:
+            first_name = 'Nombre no disponible'
+            father_lastname = 'Apellido paterno no disponible'
+            mother_lastname = 'Apellido materno no disponible'
+            account_number = 'Número de cuenta no disponible'
+            avg = 0.0
+            estrategia = 'No se ha encontrado información de puntuación emocional para este estudiante'
+
+        last_survey_date = existing_user.fecha_ultima_encuesta.strftime("%Y-%m-%dT%H:%M:%S")
+
+    return render_template('home.html', first_name=first_name, father_lastname=father_lastname, mother_lastname=mother_lastname, account_number=account_number, avg=avg, last_survey_date=last_survey_date, estrategia=estrategia)
+
+
+
+@app.route('/procesar_encuesta', methods=['POST'])
+def procesar_encuesta():
+    if 'account_number' in session:
+        respuestas = request.form
+        puntuacion = 0
+
+        for pregunta, respuesta in respuestas.items():
+            if respuesta:
+                puntuacion += int(respuesta)
+            else:
+                flash('Por favor, complete todas las preguntas antes de enviar la encuesta.', 'error')
+                time.sleep(2)
+                return redirect(url_for('home'))
+
+        numero_cuenta = session['account_number']
+
+        alumno = Alumno.query.filter_by(id_numero_cuenta=numero_cuenta).first()
+        if alumno:
+            alumno.fecha_ultima_encuesta = datetime.now()
+            alumno.puntuacion_psicologica = puntuacion
+            db.session.commit()
+            flash('Puntuación guardada en la base de datos.', 'success')
+            time.sleep(2)
+            return redirect(url_for('home'))
+        time.sleep(2)
+        return redirect(url_for('home'))
+    else:
+        time.sleep(2)
+        return redirect(url_for('home'))
+
 
 @app.route('/informacion_personal')
 def informacion_personal():
@@ -113,7 +283,11 @@ def informacion_personal():
         father_lastname = existing_user.apellido_paterno
         mother_lastname = existing_user.apellido_materno
         account_number = existing_user.id_numero_cuenta
+        semester = existing_user.semestre
+        group = existing_user.grupo
         avg = existing_user.promedio
+        phone = existing_user.numero_telefono
+        educational_program = existing_user.programa_educativo
         
 
     else:
@@ -124,7 +298,7 @@ def informacion_personal():
         account_number = 'Número de cuenta no disponible'
         avg = 0.0
 
-    return render_template('personal_info.html', first_name=first_name, father_lastname=father_lastname, mother_lastname=mother_lastname, account_number=account_number, semestre = 1, grupo =1)
+    return render_template('personal_info.html', first_name=first_name, father_lastname=father_lastname, mother_lastname=mother_lastname, account_number=account_number, semestre = semester, grupo =group, average = avg, phone =phone, educational_program = educational_program)
 
 @app.route('/editar_informacion_personal', methods=['POST'])
 def editar_informacion_personal():
@@ -179,20 +353,42 @@ def editar_informacion_personal():
 def horarios():
     return render_template('schedules.html')
 
-@app.route('/prediction', methods=['GET', 'POST'])
+@app.route('/prediction', methods=['POST', 'GET'])
 def prediction():
     if request.method == 'POST':
-        # Aquí puedes agregar la lógica de predicción de promedio
-        # Recuperar los datos del formulario, realizar la predicción y mostrar el resultado
-        current_gpa = float(request.form['current-gpa'])
-        past_semester_gpa = float(request.form['past-semester-gpa'])
-        # Realiza la predicción aquí y almacena el resultado en una variable
+        try:
+            semester_values = []
+            
+            for i in range(1, 10):
+                value = request.form.get(f'semester{i}', '')
+                if value:
+                    semester_values.append(float(value))
 
-        # Retorna la página de predicción con el resultado
-        return render_template('prediction.html', predicted_gpa=5)
+            nuevos_promedios = [9.14, 9.34, 9.23, 9.42, 9.17, 9.31, 9.01, 9.77, 10.0]
 
-    # Si es una solicitud GET, simplemente muestra el formulario
+            current_average = sum(semester_values) / len(semester_values)
+            semesters_remaining = 9 - len(semester_values)
+            prediction_results = []
+            for i in range(1, semesters_remaining + 1):
+                current_average = ((current_average + nuevos_promedios[i - 1]) / 2.0)+0.27
+                prediction_results.append({
+                    'semester': len(semester_values) + i,
+                    'prediction': round(current_average, 2),
+                })
+
+            return jsonify(prediction_results)
+        except Exception as e:
+            return f"Error: {str(e)}", 500
+
     return render_template('prediction.html')
+
+@app.route('/top_docentes')
+def top_docentes():
+    
+    profesores = Maestro.query.all()
+
+    return render_template('top_doc.html', profesores=profesores)
+
 
 if __name__ == '__main__':
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:@localhost/project5'

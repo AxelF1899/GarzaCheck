@@ -8,17 +8,31 @@
 
 body {
   font-family: Arial, sans-serif;
-  background-color: #f2f2f2; 
   margin: 0;
   padding: 0;
+  background-image: url('/static/icons/background2.jpg') ; 
+  background-size: cover; 
+  background-repeat: no-repeat; 
 }
 
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.0); /* Fondo blanco con 50% de opacidad */
+  z-index: -1; /* Coloca la capa detrás del contenido */
+  filter: blur(5px); /* Aplica un desenfoque de 5px a la imagen de fondo */
+}
 
 header {
     background-color: rgb(151, 0, 0); /* hex #97000 */
     color: #fff; 
     text-align: center;
     padding: 35px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
   
   header h1 {
@@ -31,6 +45,31 @@ header {
   font-weight: bold;
   font-size: large;
 }
+
+.alert-container {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+  width: 300px;
+}
+
+.alert {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+.alert-success {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.alert-error {
+  background-color: #f44336;
+  color: white;
+}
+
 
 
 .user-section {
@@ -253,6 +292,7 @@ circle:nth-child(2){
   margin-bottom: 40px;
   padding: 3% 0;
   border-radius: 25px 0;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 #surveyModal h2 {
@@ -285,7 +325,7 @@ circle:nth-child(2){
   text-align: left; /* Alinea el texto a la izquierda */
 }
 
-#surveyModal #submitSurvey {
+#surveyModal #submitSurveyButton {
   background-color: #970000; /* Color vino */
   color: #fff; /* Texto blanco */
   padding: 10px 20px;
@@ -297,7 +337,7 @@ circle:nth-child(2){
   transition: background-color 0.3s ease-in-out;
 }
 
-#surveyModal #submitSurvey:hover {
+#surveyModal #submitSurveyButton:hover {
   background-color: #a51945;
 }
 
@@ -305,7 +345,22 @@ circle:nth-child(2){
   box-sizing: content-box;
 }
 
-/* Estilos para los botones de respuestas (radio buttons) */
 #surveyModal input[type="radio"] {
   margin-right: 5px;
+}
+
+/* Estilos para la sección de estrategia */
+.estrategia-section {
+  background-color: #fff; /* Fondo blanco */
+  padding: 20px; /* Espaciado interno */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
+  text-align: center; /* Alineación del texto */
+  max-width: 600px; /* Ancho máximo */
+  margin: 20px auto; /* Margen exterior */
+}
+
+.estrategia-section h2 {
+  font-size: 24px; /* Tamaño del encabezado */
+  margin-bottom: 10px; /* Margen inferior */
 }

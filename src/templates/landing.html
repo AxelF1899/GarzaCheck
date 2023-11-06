@@ -11,14 +11,16 @@
 <body>
     <header>
          
-         <img src="{{ url_for('static', filename='icons/gCLogo.png') }}" alt="Logo de tu empresa" class="logo">
+         <img src="{{ url_for('static', filename='icons/gCLogo.png') }}" alt="otro fokin logo" class="logo">
          <div>
             <h1>Bienvenido a GarzaCheck</h1>
             <p>Administra tu vida académica de manera eficiente.</p>
          </div>
         <a href="{{ url_for('login') }}" class="button-login">Iniciar sesión con Google</a>
     </header>
-    
+    <div class="register">
+    <a href="/sign_up" class="register-button">¡Date de alta aquí!</a>
+    </div>
     <section id="features">
         <div class="feature">
             <h2>Administrador de horarios</h2>

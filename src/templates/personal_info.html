@@ -12,7 +12,7 @@
         <a href="/home">
             <img
                 src="{{ url_for('static', filename='icons/gCLogo.png') }}"
-                alt="Logo de tu empresa"
+                alt="otro fokin logo"
                 class="logo"
             />
         </a>
@@ -45,10 +45,10 @@
                 <input type="text" id="apellido_materno" name="apellido_materno" value="{{ mother_lastname }}" required>
 
                 <label for="telefono">Teléfono:</label>
-                <input type="text" id="telefono" name="telefono" value="{{ telefono }}" required>
+                <input type="text" id="telefono" name="telefono" value="{{ phone }}" required>
 
                 <label for="carrera">Carrera:</label>
-                <input type="text" id="carrera" name="carrera" value="{{ carrera }}" required>
+                <input type="text" id="carrera" name="carrera" value="{{ educational_program }}" required>
 
                 <label for="grupo">Grupo:</label>
                 <input type="text" id="grupo" name="grupo" value="{{ grupo }}" required>
@@ -57,7 +57,7 @@
                 <input type="text" id="semestre" name="semestre" value="{{ semestre }}" required>
 
                 <label for="promedio">Promedio:</label>
-                <input type="text" id="promedio" name="promedio" value="{{ promedio }}" required>
+                <input type="text" id="promedio" name="promedio" value="{{ average }}" required>
                 
                 <input type="submit" value="Guardar Cambios">
             </form>

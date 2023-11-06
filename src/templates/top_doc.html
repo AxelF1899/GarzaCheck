@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Top Docentes</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles/top_doc.css') }}"
+    />
+  </head>
+  <body>
+    <header>
+      <a href="/home">
+        <img
+          src="{{ url_for('static', filename='icons/gCLogo.png') }}"
+          alt="otro fokin logo"
+          class="logo"
+        />
+      </a>
+      <h1>GarzaCheck</h1>
+      <form action="/logout">
+        <input type="submit" value="Cerrar Sesión" class="logout-button" />
+      </form>
+    </header>
+    
+
+    <main>
+        <h2>    Top Docentes</h2>
+        <section class="teacher-section">
+          <div class="teacher-container">
+            {% for profesor in profesores %}
+            <div class="teacher-card">
+              <h3>{{ profesor.nombre }} {{ profesor.apellido_paterno }} {{ profesor.apellido_materno }}</h3>
+              <p>Calificación:</p>
+              <div class="rating">
+                  {% for _ in range(profesor.calificacion | int) %}
+                      <span class="star">&#9733;</span> <!-- Estrella iluminada -->
+                  {% endfor %}
+                  {% for _ in range(5 - profesor.calificacion | int) %}
+                      <span class="star">&#9734;</span> <!-- Estrella apagada -->
+                  {% endfor %}
+              </div>
+              <!-- <form action="/calificar_profesor" method="POST"> --> 
+              <form>
+                  <label for="calificacion">Calificación (0-5):</label>
+                  <input type="number" name="calificacion" min="0" max="5" step="1" required>
+                  <br>
+                  <input type="submit" class="submit-button" value="Calificar">
+              </form>
+          </div>
+          
+            {% endfor %}
+          </div>
+        </section>
+        
+        
+    </main>
+
+    
+
+    <footer></footer>
+  </body>
+</html>
