@@ -104,6 +104,7 @@ def sign_up():
         promedio = request.form.get('promedio')
         get_fecha_nacimiento = request.form.get('fecha_nacimiento')
         fecha_nacimiento = datetime.strptime(get_fecha_nacimiento, '%Y-%m-%d')
+        fecha_ultima_encuesta = '2000-01-01 22:10:09'
 
         new_user = Alumno(
             id_numero_cuenta=account_number,
@@ -116,7 +117,8 @@ def sign_up():
             programa_educativo = carrera,
             grupo = grupo,
             semestre = semestre,
-            fecha_nacimiento = fecha_nacimiento
+            fecha_nacimiento = fecha_nacimiento,
+            fecha_ultima_encuesta = fecha_ultima_encuesta
         )
 
         db.session.add(new_user)
