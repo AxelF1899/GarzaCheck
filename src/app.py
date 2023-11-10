@@ -41,7 +41,6 @@ def logout():
     session.pop('google_token', None)
     return redirect(url_for('landing_page'))
 
-# ...
 
 @app.route('/login/authorized')
 def authorized():
@@ -53,9 +52,9 @@ def authorized():
             request.args['error_description']
         )
     
-    # Almacenamiento del token de acceso en la sesión
+    
     session['google_token'] = (response['access_token'], '')
-    # Verificación de la sesión
+    
     if 'google_token' in session:
         access_token = session['google_token'][0]
 
@@ -68,13 +67,13 @@ def authorized():
         else:
             print("No se pudo obtener la información del usuario")
 
-        ##################### Verificación de correo en la base de datos ###############################
+        #####################esto ase la verificación de correo en la base de datos ###############################
         existing_user = Alumno.query.filter_by(correo_electronico=user_email).first()
         if not existing_user:
-            # El correo no está en la base de datos, redirige a la página de registro
+            
             return redirect(url_for('sign_up'))
 
-        ##################### Resto del código ###############################
+        
         names = user_data.get('name', 'Nombre no disponible').split()
         first_name = " ".join(names[:-2])
         father_lastname = names[-2]
@@ -82,22 +81,16 @@ def authorized():
 
         account_number = int(user_email[2:8])
 
-        # Guardar información en la sesión
+        # información en la sesión
         session['first_name'] = first_name
         session['father_lastname'] = father_lastname
         session['mother_lastname'] = mother_lastname
         session['account_number'] = account_number
 
-        # Resto del código...
-        # ...
-
+        
         return redirect(url_for('home'))
 
     return redirect(url_for('landing_page'))
-
-# Resto del código...
-# ...
-
 
 
 @app.route('/sign_up', methods=['GET', 'POST'])
