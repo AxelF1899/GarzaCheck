@@ -22,7 +22,7 @@
       </a>
       <h1>GarzaCheck</h1>
       <form action="/">
-        <input type="submit" value="Cerrar Sesión" class="logout-button" />
+        <input type="submit" value="Volver" class="logout-button" />
       </form>
     </header>
 
@@ -59,7 +59,7 @@
 
           <label for="fecha_nacimiento">Fecha de Nacimiento (Año-Mes-Dia):</label>
           <input
-            type="text"
+            type="date"
             id="fecha_nacimiento"
             name="fecha_nacimiento"
             required
@@ -69,19 +69,20 @@
           <input type="text" id="correo" name="correo" required />
 
           <label for="telefono">Teléfono:</label>
-          <input type="text" id="telefono" name="telefono" required />
+          <input type="number" id="telefono" name="telefono" required />
 
           <label for="carrera">Programa educativo:</label>
           <input type="text" id="carrera" name="carrera" required />
 
           <label for="grupo">Grupo:</label>
-          <input type="text" id="grupo" name="grupo" required />
+          <input type="number" id="grupo" name="grupo" required />
 
           <label for="semestre">Semestre:</label>
-          <input type="text" id="semestre" name="semestre" required />
+          <input type="number" id="semestre" name="semestre" required />
 
           <label for="promedio">Promedio:</label>
-          <input type="text" id="promedio" name="promedio" required />
+<input type="text" id="promedio" name="promedio" required pattern="\d+(\.\d{1,2})?" title="Ingresa un número decimal con hasta dos decimales"/>
+
 
           <input type="submit" value="Registrarse" class="submit-button" />
         </form>

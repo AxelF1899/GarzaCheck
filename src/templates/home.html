@@ -21,7 +21,6 @@
         alt="otro fokin logo"
         class="logo"
       />
-      
       <form action="/logout" >
         <input type="submit" value="Cerrar Sesión" class="logout-button" />
       </form>
@@ -198,7 +197,10 @@
 
       </section>
       <section class="estrategia-section">
-        <h2>Estrategia para Mejorar el Rendimiento Escolar</h2>
+        <h2>Estrategia para mejorar el rendimiento escolar</h2>
+        <br>
+        <p class="description" >Esta estrategia está basada en tu rendimiento académico, hábitos de sueño y estado emocional. A continuación se presentan tus puntos de mejora más relevantes:</p>
+        <br>
         <p>{{ estrategia }}</p>
     </section>
     </main>    
@@ -214,7 +216,7 @@
           const selectedImage = event.target.files[0];
 
           if (selectedImage) {
-            // Crear una URL para la imagen seleccionada
+            
             const imageUrl = URL.createObjectURL(selectedImage);
 
             const profileImage = document.getElementById("user-profile-image");

@@ -3,6 +3,7 @@ from flask_oauthlib.client import OAuth
 from models import db, Alumno, Maestro
 from datetime import datetime, timedelta
 import time
+from markupsafe import Markup
 
 
 app = Flask(__name__)
@@ -40,6 +41,8 @@ def logout():
     session.pop('google_token', None)
     return redirect(url_for('landing_page'))
 
+# ...
+
 @app.route('/login/authorized')
 def authorized():
     response = google.authorized_response()
@@ -52,7 +55,7 @@ def authorized():
     
     # Almacenamiento del token de acceso en la sesión
     session['google_token'] = (response['access_token'], '')
-    #Verificación de la sesión
+    # Verificación de la sesión
     if 'google_token' in session:
         access_token = session['google_token'][0]
 
@@ -65,20 +68,37 @@ def authorized():
         else:
             print("No se pudo obtener la información del usuario")
 
-        names = user_name.split()
+        ##################### Verificación de correo en la base de datos ###############################
+        existing_user = Alumno.query.filter_by(correo_electronico=user_email).first()
+        if not existing_user:
+            # El correo no está en la base de datos, redirige a la página de registro
+            return redirect(url_for('sign_up'))
+
+        ##################### Resto del código ###############################
+        names = user_data.get('name', 'Nombre no disponible').split()
         first_name = " ".join(names[:-2])
         father_lastname = names[-2]
         mother_lastname = names[-1]
 
         account_number = int(user_email[2:8])
 
-        ##################### Valores de la sesión activa ###############################
+        # Guardar información en la sesión
         session['first_name'] = first_name
         session['father_lastname'] = father_lastname
         session['mother_lastname'] = mother_lastname
         session['account_number'] = account_number
 
-    return redirect(url_for('home'))
+        # Resto del código...
+        # ...
+
+        return redirect(url_for('home'))
+
+    return redirect(url_for('landing_page'))
+
+# Resto del código...
+# ...
+
+
 
 @app.route('/sign_up', methods=['GET', 'POST'])
 def sign_up():
@@ -103,9 +123,9 @@ def sign_up():
         semestre = request.form.get('semestre')
         promedio = request.form.get('promedio')
         get_fecha_nacimiento = request.form.get('fecha_nacimiento')
-        fecha_nacimiento = datetime.strptime(get_fecha_nacimiento, '%Y-%m-%d')
         fecha_ultima_encuesta = '2000-01-01 22:10:09'
 
+        fecha_nacimiento = get_fecha_nacimiento
         new_user = Alumno(
             id_numero_cuenta=account_number,
             nombres_alumno=nombre,
@@ -130,76 +150,163 @@ def sign_up():
 
 def determinar_estrategia(puntuacion):
     if 14 <= puntuacion <= 20:
-        return '''Recuerda que cada paso que das, por pequeño que sea, te acerca a tus metas. Tu esfuerzo y dedicación son la clave para alcanzar el éxito. No importa cuántas veces te caigas, lo que realmente cuenta es cuántas veces te levantas y sigues adelante.
-
+        return Markup('''
+                      <p class="line-height">
+Recuerda que cada paso que das, por pequeño que sea, te acerca a tus metas. Tu esfuerzo y dedicación son la clave para alcanzar el éxito. No importa cuántas veces te caigas, lo que realmente cuenta es cuántas veces te levantas y sigues adelante.
+\n<br>
 Tu trabajo está haciendo una diferencia en la vida de los demás. Al ayudar a los demás, no solo estás mejorando sus vidas, sino que también estás mejorando la tuya. La bondad y la empatía que muestras hacia los demás son un reflejo de la increíble persona que eres.
+\n<br>
+Así que sigue adelante, sigue trabajando duro y nunca dejes de creer en tí mism@. ¡Tú puedes hacerlo! 💪
+\n<br>
+                      <img class="strategy" src="..//static/icons/estudio3.png" alt="imagen jeje">                      
+\n<br></p>
+<h2>Salud emocional:</h2><p class="line-height">
+\n<br>
+-Practicar la autocompasión: Sé amable contigo mismo y reconoce que todos cometemos errores.
+\n<br>
+-Expresar tus emociones de manera saludable: Busca formas seguras y constructivas de expresar tus sentimientos.
+\n<br>
 
-Así que sigue adelante, sigue trabajando duro y nunca dejes de creer en ti mismo. ¡Tú puedes hacerlo! 💪
+<img class="strategy" src="..//static/icons/emocion.png" alt="imagen jeje">                      
 
-        Salud emocional:
-
-Practicar la autocompasión: Sé amable contigo mismo y reconoce que todos cometemos errores7.
-Expresar tus emociones de manera saludable: Busca formas seguras y constructivas de expresar tus sentimientos7.
-
-'''
+</p>
+''')
     elif 20 <= puntuacion <= 30:
-        return '''Sueño:
+        return Markup('''
+<h2>Sueño:</h2><p class="line-height">
+\n<br>
+-Evitar las siestas largas durante el día: Si necesitas una siesta, intenta que sea corta y temprano en la tarde6.
+\n<br>
+-Limitar la ingesta de cafeína y alcohol: Ambos pueden interferir con la calidad del sueño.
+\n<br>
 
-Evitar las siestas largas durante el día: Si necesitas una siesta, intenta que sea corta y temprano en la tarde6.
-Limitar la ingesta de cafeína y alcohol: Ambos pueden interferir con la calidad del sueño6.
-
-Salud emocional:
-
-Practicar la autocompasión: Sé amable contigo mismo y reconoce que todos cometemos errores7.
-Expresar tus emociones de manera saludable: Busca formas seguras y constructivas de expresar tus sentimientos7.
-Desempeño escolar:
-'''
+                      
+<img class="strategy" src="..//static/icons/sueno.png" alt="imagen jeje">
+ </p>                     
+<h2>Salud emocional:</h2><p class="line-height">
+\n<br>
+-Practicar la autocompasión: Sé amable contigo mismo y reconoce que todos cometemos errores.
+\n<br>
+-Expresar tus emociones de manera saludable: Busca formas seguras y constructivas de expresar tus sentimientos.
+\n<br>
+                      
+<img class="strategy" src="..//static/icons/emocion1.png" alt="imagen jeje">                  
+                        
+</p>
+''')
     elif 30 <= puntuacion <= 40:
-        return '''Sueño:
+        return Markup('''
+<h2>Sueño:</h2><p class="line-height">
+\n<br>
+-Evitar las siestas largas durante el día: Si necesitas una siesta, intenta que sea corta y temprano en la tarde.
+\n<br>
+-Limitar la ingesta de cafeína y alcohol: Ambos pueden interferir con la calidad del sueño.
+\n<br>
 
-Evitar las siestas largas durante el día: Si necesitas una siesta, intenta que sea corta y temprano en la tarde6.
-Limitar la ingesta de cafeína y alcohol: Ambos pueden interferir con la calidad del sueño6.
-Salud emocional:
+                      
+<img class="strategy" src="..//static/icons/sueno1.png" alt="imagen jeje">
+   </p>                   
+<h2>Salud emocional:</h2><p class="line-height">
+\n<br>
+-Practicar la autocompasión: Sé amable contigo mismo y reconoce que todos cometemos errores.
+\n<br>
+-Expresar tus emociones de manera saludable: Busca formas seguras y constructivas de expresar tus sentimientos.
+\n<br>
 
-Practicar la autocompasión: Sé amable contigo mismo y reconoce que todos cometemos errores7.
-Expresar tus emociones de manera saludable: Busca formas seguras y constructivas de expresar tus sentimientos7.
-Desempeño escolar:
-
-Tomar descansos regulares durante el estudio: Los descansos cortos pueden ayudar a mantener la concentración a largo plazo8.
-Pedir ayuda cuando sea necesario: No dudes en buscar ayuda de profesores o compañeros de clase si tienes dificultades con el material de estudio8.
-'''
+                      
+<img class="strategy" src="..//static/icons/emocion2.png" alt="imagen jeje">
+</p>
+<h2>Desempeño escolar:</h2><p class="line-height">
+\n<br>
+-Tomar descansos regulares durante el estudio: Los descansos cortos pueden ayudar a mantener la concentración a largo plazo.
+\n<br>
+-Pedir ayuda cuando sea necesario: No dudes en buscar ayuda de profesores o compañeros de clase si tienes dificultades con el material de estudio.
+\n<br>
+                      
+<img class="strategy" src="..//static/icons/estudio.png" alt="imagen jeje">
+                      
+</p>
+''')
     elif 40 <= puntuacion <= 50:
-        return '''Salud emocional:
-Practicar la autogestión: Aprende a identificar y manejar tus emociones de manera efectiva3.
-Fomentar las relaciones interpersonales saludables: Mantén una red de apoyo social sólida y busca ayuda cuando la necesites3.
-Practicar la atención plena: La meditación y otras prácticas de atención plena pueden ayudarte a mantener un estado mental equilibrado4.
-'''
+        return Markup('''
+<h2>Salud emocional:</h2> <p class="line-height">
+\n<br>
+-Practicar la autogestión: Aprende a identificar y manejar tus emociones de manera efectiva.
+\n<br>
+-Fomentar las relaciones interpersonales saludables: Mantén una red de apoyo social sólida y busca ayuda cuando la necesites.
+\n<br>
+-Practicar la atención plena: La meditación y otras prácticas de atención plena pueden ayudarte a mantener un estado mental equilibrado.
+\n<br>
+
+<img class="strategy" src="..//static/icons/emocion3.png" alt="imagen jeje">
+
+</p>
+''')
     elif 50 <= puntuacion <= 57:
-        return '''Sueño:
-Establecer una rutina de sueño: Intenta acostarte y levantarte a la misma hora todos los días, incluso los fines de semana1.
-Evitar el uso de dispositivos electrónicos antes de dormir: La luz de las pantallas puede estimular la actividad cerebral y dificultar el sueño. Es aconsejable no usar el teléfono incluso dos horas antes de ir a dormir2.
-Crear un ambiente propicio para el sueño: Mantén tu habitación oscura, tranquila y a una temperatura cómoda1.
+        return Markup('''
+<h2>Sueño:</h2><p class="line-height">
+\n<br>
+-Establecer una rutina de sueño: Intenta acostarte y levantarte a la misma hora todos los días, incluso los fines de semana.
+\n<br>
+-Evitar el uso de dispositivos electrónicos antes de dormir: La luz de las pantallas puede estimular la actividad cerebral y dificultar el sueño. Es aconsejable no usar el teléfono incluso dos horas antes de ir a dormir.
+\n<br>
+-Crear un ambiente propicio para el sueño: Mantén tu habitación oscura, tranquila y a una temperatura cómoda.
+\n<br>
 
-Salud emocional:
-Practicar la autogestión: Aprende a identificar y manejar tus emociones de manera efectiva3.
-Fomentar las relaciones interpersonales saludables: Mantén una red de apoyo social sólida y busca ayuda cuando la necesites3.
-Practicar la atención plena: La meditación y otras prácticas de atención plena pueden ayudarte a mantener un estado mental equilibrado4.
-'''
+                      
+<img class="strategy" src="..//static/icons/sueno2.png" alt="imagen jeje">
+     </p>                 
+<h2>Salud emocional:</h2><p class="line-height">
+\n<br>
+-Practicar la autogestión: Aprende a identificar y manejar tus emociones de manera efectiva.
+\n<br>
+-Fomentar las relaciones interpersonales saludables: Mantén una red de apoyo social sólida y busca ayuda cuando la necesites.
+\n<br>
+-Practicar la atención plena: La meditación y otras prácticas de atención plena pueden ayudarte a mantener un estado mental equilibrado.
+\n<br>
+
+<img class="strategy" src="..//static/icons/emocion.png" alt="imagen jeje">
+
+</p>
+''')
     else:
-        return '''Sueño:
-Establecer una rutina de sueño: Intenta acostarte y levantarte a la misma hora todos los días, incluso los fines de semana1.
-Evitar el uso de dispositivos electrónicos antes de dormir: La luz de las pantallas puede estimular la actividad cerebral y dificultar el sueño. Es aconsejable no usar el teléfono incluso dos horas antes de ir a dormir2.
-Crear un ambiente propicio para el sueño: Mantén tu habitación oscura, tranquila y a una temperatura cómoda1.
+        return Markup('''
+<h2>Sueño:</h2><p class="line-height">
+\n<br>
+-Establecer una rutina de sueño: Intenta acostarte y levantarte a la misma hora todos los días, incluso los fines de semana.
+\n<br>
+-Evitar el uso de dispositivos electrónicos antes de dormir: La luz de las pantallas puede estimular la actividad cerebral y dificultar el sueño. Es aconsejable no usar el teléfono incluso dos horas antes de ir a dormir.
+\n<br>
+-Crear un ambiente propicio para el sueño: Mantén tu habitación oscura, tranquila y a una temperatura cómoda.
+\n<br>
 
-Salud emocional:
-Practicar la autogestión: Aprende a identificar y manejar tus emociones de manera efectiva3.
-Fomentar las relaciones interpersonales saludables: Mantén una red de apoyo social sólida y busca ayuda cuando la necesites3.
-Practicar la atención plena: La meditación y otras prácticas de atención plena pueden ayudarte a mantener un estado mental equilibrado4.
+                      
+<img class="strategy" src="..//static/icons/sueno3.png" alt="imagen jeje">
+</p>
+<h2>Salud emocional:</h2><p class="line-height">
+\n<br>
+-Practicar la autogestión: Aprende a identificar y manejar tus emociones de manera efectiva.
+\n<br>
+-Fomentar las relaciones interpersonales saludables: Mantén una red de apoyo social sólida y busca ayuda cuando la necesites.
+\n<br>
+-Practicar la atención plena: La meditación y otras prácticas de atención plena pueden ayudarte a mantener un estado mental equilibrado.
+\n<br>
 
-Desempeño escolar:
-Organizar el material de estudio: Tener un espacio de estudio ordenado y libre de distracciones puede ayudar a mejorar la concentración5.
-Utilizar técnicas de estudio efectivas: Experimenta con diferentes técnicas de estudio para encontrar las que mejor funcionen para ti5.
-Gestionar el tiempo de manera efectiva: Planifica tu tiempo de estudio y descanso para evitar el agotamiento5.'''
+                      
+<img class="strategy" src="..//static/icons/emocion1.png" alt="imagen jeje">
+</p>
+<h2>Desempeño escolar:</h2><p class="line-height">
+\n<br>
+-Organizar el material de estudio: Tener un espacio de estudio ordenado y libre de distracciones puede ayudar a mejorar la concentración.
+\n<br>
+-Utilizar técnicas de estudio efectivas: Experimenta con diferentes técnicas de estudio para encontrar las que mejor funcionen para tí.
+\n<br>
+-Gestionar el tiempo de manera efectiva: Planifica tu tiempo de estudio y descanso para evitar el agotamiento.
+\n<br>
+                      
+<img class="strategy" src="..//static/icons/estudio2.png" alt="imagen jeje">                 
+                      </p>
+''')
 
 
 @app.route('/home', methods=['GET', 'POST'])

@@ -349,18 +349,38 @@ circle:nth-child(2){
   margin-right: 5px;
 }
 
-/* Estilos para la sección de estrategia */
+
 .estrategia-section {
-  background-color: #fff; /* Fondo blanco */
-  padding: 20px; /* Espaciado interno */
-  border-radius: 10px; /* Bordes redondeados */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
-  text-align: center; /* Alineación del texto */
-  max-width: 600px; /* Ancho máximo */
-  margin: 20px auto; /* Margen exterior */
+  background-color: #fff; 
+  padding: 80px; 
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  text-align: center; 
+  max-width: 600px; 
+  margin: 20px auto;
 }
 
 .estrategia-section h2 {
-  font-size: 24px; /* Tamaño del encabezado */
-  margin-bottom: 10px; /* Margen inferior */
+  font-size: 24px; 
+  margin-bottom: 10px; 
+}
+
+p {
+  margin-bottom: 15px; 
+}
+
+.line-height {
+  line-height: 2.5;
+  text-align: justify;
+}
+
+.strategy {
+  display: block;  
+  margin: 30px auto 50px auto; 
+  max-width: 30%; 
+  height: auto;    
+}
+
+.description {
+  line-height: 2.5;
 }
