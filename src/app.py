@@ -8,6 +8,8 @@ from big_functions.strategy import determinar_estrategia
 
 
 app = Flask(__name__)
+app.static_folder = 'static'
+app.template_folder = 'templates'
 app.secret_key = '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' #Guardar y borrar por ahora
 
 scopes = ['https://www.google.com/auth/userinfo.profile', 'https://www.google.com/auth/userinfo.email']

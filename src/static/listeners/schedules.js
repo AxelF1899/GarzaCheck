@@ -1,5 +1,7 @@
 
 document.addEventListener("DOMContentLoaded", function () {
+
+  generarTabla();
   
   const agregarMateriaButton = document.getElementById("agregar-materia");
   agregarMateriaButton.addEventListener("click", function (event) {
@@ -125,17 +127,66 @@ document.addEventListener("DOMContentLoaded", function () {
       "19:00",
       "20:00",
     ];
-    horas.forEach((hora) => {
+    horas.forEach((hora, rowIndex) => {
       const row = document.createElement("tr");
       const horaCell = document.createElement("td");
       horaCell.textContent = hora;
       row.appendChild(horaCell);
-      dias.forEach(() => {
-        const emptyCell = document.createElement("td");
-        row.appendChild(emptyCell);
+      dias.forEach((dia, colIndex) => {
+        const cell = document.createElement("td");
+        row.appendChild(cell);
+
+        
+        if (
+          (dia === "Lunes" && hora === "07:00") ||
+          (dia === "Jueves" && hora === "07:00") ||
+          (dia === "Miércoles" && hora === "07:00")||
+          (dia === "Lunes" && hora === "08:00") ||
+          (dia === "Jueves" && hora === "08:00") ||
+          (dia === "Miércoles" && hora === "08:00")
+        ) {
+          cell.textContent = "Redes";
+        } else if (
+          (dia === "Lunes" && hora === "09:00") ||
+          (dia === "Martes" && hora === "10:00") ||
+          (dia === "Miércoles" && hora === "13:00")||
+          (dia === "Lunes" && hora === "10:00") ||
+          (dia === "Martes" && hora === "11:00") ||
+          (dia === "Miércoles" && hora === "14:00")
+        ) {
+          cell.textContent = "IA";
+        } else if (
+          (dia === "Lunes" && hora === "11:00") ||
+          (dia === "Lunes" && hora === "12:00") ||
+          (dia === "Jueves" && hora === "11:00") ||
+          (dia === "Jueves" && hora === "12:00")
+        ) {
+          cell.textContent = "Eng";
+        } else if (
+          (dia === "Lunes" && hora === "13:00") ||
+          (dia === "Lunes" && hora === "14:00") ||
+          (dia === "Martes" && hora === "08:00") ||
+          (dia === "Martes" && hora === "09:00") ||
+          (dia === "Viernes" && hora === "09:00")||
+          (dia === "Viernes" && hora === "10:00")
+        ) {
+          cell.textContent = "BD";
+        }else if (
+          (dia === "Martes" && hora === "07:00") ||
+          (dia === "Miércoles" && hora === "09:00") ||
+          (dia === "Miércoles" && hora === "10:00") ||
+          (dia === "Jueves" && hora === "09:00") ||
+          (dia === "Jueves" && hora === "10:00")||
+          (dia === "Viernes" && hora === "07:00")||
+          (dia === "Viernes" && hora === "08:00")
+        ) {
+          cell.textContent = "AMH";
+        }
+
       });
       tbody.appendChild(row);
     });
+    table.appendChild(tbody);
 
     materiaSections.forEach((materiaSection) => {
       const materiaNombre = materiaSection.querySelector(
@@ -186,6 +237,36 @@ document.addEventListener("DOMContentLoaded", function () {
       tableContainer.appendChild(table);
     }
   }
+
+  
+  const tableContainer = document.getElementById("horario-table-container");
+
+  const guardarHorarioButton = document.createElement("button");
+  guardarHorarioButton.id = "guardar-horario";
+  guardarHorarioButton.textContent = "Imprimir horario";
+  guardarHorarioButton.addEventListener("click", function () {
+      const tableToPrint = tableContainer.cloneNode(true);
+      tableToPrint.style.width = "100%";
+  
+      const printWindow = window.open('', '_blank');
+      printWindow.document.write('<html><head><title>Horario</title>');
+      
+      
+      printWindow.document.write('<link rel="stylesheet" type="text/css" href="/static/styles/schedules.css" onload="window.print();">');
+      
+      printWindow.document.write('</head><body>');
+      printWindow.document.body.appendChild(tableToPrint);
+      printWindow.document.write('</body></html>');
+      printWindow.document.close();
+  
+      
+      window.addEventListener("afterprint", function () {
+          printWindow.close();
+      });
+  });
+  
+  tableContainer.appendChild(guardarHorarioButton);
+  
 
   
   const imprimirHorarioButton = document.getElementById("imprimir-horario");

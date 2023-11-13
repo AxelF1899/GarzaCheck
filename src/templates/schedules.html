@@ -25,6 +25,16 @@
     </header>
 
     <main>
+      <div class="dropdown">
+        <button class="dropbtn"><i class="fas fa-bars"></i> Menú</button>
+        <div class="dropdown-content">
+          <a href="{{ url_for('prediction') }}">Predicción de promedio</a>
+          <a href="{{ url_for('top_docentes') }}">Top docentes</a>
+          <a href="{{ url_for('informacion_personal') }}">Información personal</a>
+          <a href="{{ url_for('horarios') }}">Gestionar horario</a>
+
+        </div>
+      </div>
       <section class="horario-section">
         <h2>Crear Horario de Clases</h2>
         <button id="agregar-materia">Agregar Materia</button>
@@ -40,7 +50,7 @@
     </main>
 
     <footer>
-      <!-- No olvidar poner el footer jaja xd -->
+      <p>&copy; 2023 GarzaCheck</p>
     </footer>
 
     <script src="{{ url_for('static', filename='listeners/schedules.js') }}"></script>

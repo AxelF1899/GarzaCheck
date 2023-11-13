@@ -22,6 +22,16 @@
         
       </header>
     <main>
+        <div class="dropdown">
+            <button class="dropbtn"><i class="fas fa-bars"></i> Menú</button>
+            <div class="dropdown-content">
+              <a href="{{ url_for('prediction') }}">Predicción de promedio</a>
+              <a href="{{ url_for('top_docentes') }}">Top docentes</a>
+              <a href="{{ url_for('informacion_personal') }}">Información personal</a>
+              <a href="{{ url_for('horarios') }}">Gestionar horario</a>
+  
+            </div>
+          </div>
         <div class="user-section" id="input-section">
             <h2>Ingresa tus promedios por semestre</h2>
             <form id="prediction-form" method="POST" action="/prediction">
@@ -82,7 +92,7 @@
         </div>
     </main>
     <footer>
-        GarzaCheck © 2023
+        <p>&copy; 2023 GarzaCheck</p>
     </footer>
     <script src="{{ url_for('static', filename='../static/listeners/prediction.js') }}"></script>
 </body>

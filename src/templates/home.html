@@ -170,17 +170,17 @@
           class="profile-image-input"
           accept="image/*"
         />
-        <button class="profile-button" onclick="changeProfileImage()">
-          <i class="fas fa-camera profile-camera-icon"></i> Cambiar Foto de
-          Perfil
-        </button>
-
+        
         <img
           id="user-profile-image"
           src="{{ url_for('static', filename='icons/heronLogo.png') }}"
           alt="Foto de perfil"
           class="user-profile-image"
         />
+
+        <button class="profile-button" onclick="changeProfileImage()">
+          <i class="fas fa-camera profile-camera-icon"></i> 
+        </button>
 
         <h2 class="subtitles">
           Tu promedio general
@@ -206,7 +206,7 @@
     </main>    
 
     <footer>
-      <p>&copy; {{ current_year }} GarzaCheck</p>
+      <p>&copy; 2023 GarzaCheck</p>
     </footer>
     <script>
       function changeProfileImage() {

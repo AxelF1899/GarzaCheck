@@ -24,6 +24,12 @@ header h1 {
   margin-bottom: 20px;
 }
 
+.logo {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+}
+
 .logout-button {
   position: absolute;
   top: 10px; 
@@ -135,4 +141,65 @@ footer {
   padding: 10px 0;
   border-top: 2px solid #fff;
   font-size: 14px;
+}
+footer {
+  background-color: rgb(151, 0, 0);
+  color: #fff; 
+  text-align: center;
+  padding: 10px 0;
+  border-top: 2px solid #fff;
+  font-size: 14px;
+}
+.dropdown {
+  top: 150px;
+  left: 20px;
+  position: absolute;
+  display: flex;
+}
+
+.dropbtn {
+  background-color: #970000; 
+  color: #fff; 
+  padding: 10px 20px;
+  border: none;
+  border-radius: 0px 0px 5px 5px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  border-radius: 5px;
+}
+
+.dropdown-content a {
+  color: #333;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.3s ease-in-out;
+  border-radius: 5px;
+}
+
+.dropdown-content a:hover {
+  background-color: rgba(
+    151,
+    0,
+    0,
+    0.2
+  ); 
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #a51945; 
 }

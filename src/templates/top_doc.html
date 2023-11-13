@@ -8,6 +8,23 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='styles/top_doc.css') }}"
     />
+    <script>
+      function calificarConAlerta(event) {
+          event.preventDefault();  // Prevenir el envío del formulario por defecto
+
+          // Mostrar alerta
+          alert("Calificación guardada con éxito.");
+
+          // Esperar 2 segundos (2000 milisegundos)
+          setTimeout(function () {
+              // Obtener el formulario y realizar el envío
+              var form = document.getElementById("calificacionForm");
+              form.submit();
+          }, 2000);
+      }
+  </script>
+</head>
+
   </head>
   <body>
     <header>
@@ -26,6 +43,16 @@
     
 
     <main>
+      <div class="dropdown">
+        <button class="dropbtn"><i class="fas fa-bars"></i> Menú</button>
+        <div class="dropdown-content">
+          <a href="{{ url_for('prediction') }}">Predicción de promedio</a>
+          <a href="{{ url_for('top_docentes') }}">Top docentes</a>
+          <a href="{{ url_for('informacion_personal') }}">Información personal</a>
+          <a href="{{ url_for('horarios') }}">Gestionar horario</a>
+
+        </div>
+      </div>
         <h2>    Top Docentes</h2>
         <section class="teacher-section">
           <div class="teacher-container">
@@ -46,7 +73,7 @@
                   <label for="calificacion">Calificación (0-5):</label>
                   <input type="number" name="calificacion" min="0" max="5" step="1" required>
                   <br>
-                  <input type="submit" class="submit-button" value="Calificar">
+                  <input type="submit" class="submit-button" value="Calificar" onclick="calificarConAlerta(event)">
               </form>
           </div>
           
@@ -59,6 +86,8 @@
 
     
 
-    <footer></footer>
+    <footer>
+      <p>&copy; 2023 GarzaCheck</p>
+    </footer>
   </body>
 </html>
