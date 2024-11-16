@@ -1,33 +1,33 @@
-from flask import Flask, redirect, url_for, session, render_template, request, jsonify,flash
-from flask_oauthlib.client import OAuth
+from flask import Flask, redirect, url_for, session, render_template, request, jsonify, flash
 from models import db, Alumno, Maestro
-from datetime import datetime, timedelta
+from datetime import datetime
 import time
+import numpy as np
 from big_functions.strategy import determinar_estrategia
+from sklearn.ensemble import RandomForestRegressor
+from flask_oauthlib.client import OAuth
+from urllib.parse import quote as url_quote
+from dotenv import load_dotenv 
+import os
+load_dotenv()
 
-
-
-app = Flask(__name__)
-app.static_folder = 'static'
-app.template_folder = 'templates'
-app.secret_key = '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' #Guardar y borrar por ahora
-
-scopes = ['https://www.google.com/auth/userinfo.profile', 'https://www.google.com/auth/userinfo.email']
+app = Flask(__name__) 
+app.static_folder = 'static' 
+app.template_folder = 'templates' 
+app.secret_key = os.getenv('SECRET_KEY') 
+scopes = ['https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/userinfo.email']
 
 oauth = OAuth(app)
 
 google = oauth.remote_app(
     'google',
-    consumer_key='875442195195-g3rje2pdqa7iuk0our7h8dfdgcu9qndo.apps.googleusercontent.com',
-    consumer_secret='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',
-    request_token_params={
-        'scope': 'email profile',
-    },
-    base_url='https://www.googleapis.com/oauth2/v1/',
-    request_token_url=None,
-    access_token_method='POST',
-    access_token_url='https://accounts.google.com/o/oauth2/token',
+    consumer_key=os.getenv('GOOGLE_CONSUMER_KEY'), 
+    consumer_secret=os.getenv('GOOGLE_CONSUMER_SECRET'), 
+    base_url='https://www.googleapis.com/oauth2/v1/', 
+    request_token_url=None, access_token_method='POST', 
+    access_token_url='https://accounts.google.com/o/oauth2/token', 
     authorize_url='https://accounts.google.com/o/oauth2/auth',
+    request_token_params={ 'scope': 'email profile'}
 )
 
 @app.route('/')
@@ -38,12 +38,6 @@ def landing_page():
 @app.route('/login')
 def login():
     return google.authorize(callback=url_for('authorized', _external=True))
-
-@app.route('/logout')
-def logout():
-    session.pop('google_token', None)
-    return redirect(url_for('landing_page'))
-
 
 @app.route('/login/authorized')
 def authorized():
@@ -95,6 +89,10 @@ def authorized():
 
     return redirect(url_for('landing_page'))
 
+@app.route('/logout')
+def logout():
+    session.pop('google_token', None)
+    return redirect(url_for('landing_page'))
 
 @app.route('/sign_up', methods=['GET', 'POST'])
 def sign_up():
@@ -303,23 +301,35 @@ def horarios():
 def prediction():
     if request.method == 'POST':
         try:
+            # Obtener los valores de los semestres desde el formulario
             semester_values = []
-            
             for i in range(1, 10):
                 value = request.form.get(f'semester{i}', '')
                 if value:
                     semester_values.append(float(value))
 
-            nuevos_promedios = [9.14, 9.34, 9.23, 9.42, 9.17, 9.31, 9.01, 9.77, 10.0]
+            # Conjunto de datos de ejemplo
+            X_train = np.array([
+                [1, 8.5], [2, 8.7], [3, 8.9], [4, 9.0], 
+                [5, 9.2], [6, 9.3], [7, 9.5], [8, 9.6], [9, 9.8]
+            ])
+            y_train = np.array([8.5, 8.7, 8.9, 9.0, 9.2, 9.3, 9.5, 9.6, 9.8])
 
-            current_average = sum(semester_values) / len(semester_values)
-            semesters_remaining = 9 - len(semester_values)
+            # Crear y entrenar el modelo de Random Forest
+            model = RandomForestRegressor(n_estimators=100, random_state=42)
+            model.fit(X_train, y_train)
+
+            # Predecir los promedios faltantes
+            missing_semesters = 9 - len(semester_values)
+            X_test = np.array([[len(semester_values) + i, semester_values[-1]] for i in range(1, missing_semesters + 1)])
+            predicted_averages = model.predict(X_test)
+
+            # Preparar los resultados de la predicción
             prediction_results = []
-            for i in range(1, semesters_remaining + 1):
-                current_average = ((current_average + nuevos_promedios[i - 1]) / 2.0)+0.27
+            for i, pred in enumerate(predicted_averages, start=1):
                 prediction_results.append({
                     'semester': len(semester_values) + i,
-                    'prediction': round(current_average, 2),
+                    'prediction': round(pred, 2)
                 })
 
             return jsonify(prediction_results)
@@ -330,13 +340,10 @@ def prediction():
 
 @app.route('/top_docentes')
 def top_docentes():
-    
     profesores = Maestro.query.all()
-
     return render_template('top_doc.html', profesores=profesores)
 
-
 if __name__ == '__main__':
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:@localhost/project5'
-    db.init_app(app)  
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
+    db.init_app(app)
     app.run(debug=True)

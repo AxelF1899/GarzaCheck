@@ -3,24 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Landing GarzaCheck</title>
+    <title>Landing Edana</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles/styles.css') }}">
-    <style>
-    </style>
 </head>
 <body>
+    <!-- Modal para Aviso de Privacidad -->
+    <div id="privacyModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Aviso de Privacidad</h2>
+            <p>En Edana valoramos tu privacidad. Esta plataforma utiliza tus datos únicamente para gestionar y optimizar tu experiencia académica. Al utilizar esta aplicación, aceptas nuestro <a href="https://drive.google.com/your-privacy-document-link" target="_blank">aviso de privacidad</a>.</p>
+            <button id="acceptPrivacy">Aceptar</button>
+        </div>
+    </div>
+
     <header>
-         
-         <img src="{{ url_for('static', filename='icons/gCLogo.png') }}" alt="otro fokin logo" class="logo">
-         <div>
-            <h1>Bienvenido a GarzaCheck</h1>
+        <img src="{{ url_for('static', filename='icons/gCLogo.png') }}" alt="Logo Edana" class="logo">
+        <div>
+            <h1>Bienvenido a Edana</h1>
             <p>Administra tu vida académica de manera eficiente.</p>
-         </div>
+        </div>
         <a href="{{ url_for('login') }}" class="button-login">Iniciar sesión con Google</a>
     </header>
+    
     <div class="register">
-    <a href="/sign_up" class="register-button">¡Date de alta aquí!</a>
+        <a href="{{ url_for('sign_up') }}" class="register-button">¡Date de alta aquí!</a>
     </div>
+    
     <section id="features">
         <div class="feature">
             <h2>Administrador de horarios</h2>
@@ -38,19 +47,19 @@
     
     <div class="carousel-container">
         <div class="carousel">
-            <div class="step step-bg" style="background-image: url('static/icons/login.png');">
+            <div class="step step-bg" style="background-image: url('{{ url_for('static', filename='icons/login.png') }}');">
                 <div class="step-content">
                     <h2>Paso 1</h2>
-                    <p>Regístrate en GarzaCheck con tu cuenta institucional.</p>
+                    <p>Regístrate en Edana con tu cuenta institucional.</p>
                 </div>
             </div>
-            <div class="step step-bg" style="background-image: url('static/icons/menu.png');">
+            <div class="step step-bg" style="background-image: url('{{ url_for('static', filename='icons/menu.png') }}');">
                 <div class="step-content">
                     <h2>Paso 2</h2>
                     <p>Confirma que tu información personal sea correcta.</p>
                 </div>
             </div>
-            <div class="step step-bg" style="background-image: url('static/icons/manage.png');">
+            <div class="step step-bg" style="background-image: url('{{ url_for('static', filename='icons/manage.png') }}');">
                 <div class="step-content">
                     <h2>Paso 3</h2>
                     <p>Pon en marcha una estrategia para gestionar tus horarios y calificaciones de manera efectiva.</p>
@@ -60,25 +69,51 @@
     </div>
 
     <footer>
-        <p>&copy; 2023 GarzaCheck</p>
-      </footer>
+        <p>&copy; 2023 Edana</p>
+    </footer>
 
     <script>
-        // JavaScript para controlar el carrusel de texto
+        // JavaScript para el carrusel
         const carousel = document.querySelector('.carousel');
         const steps = document.querySelectorAll('.step');
-        const interval = 3500; // Cambio de paso cada 3 segundos
+        const interval = 3500;
         let index = 0;
 
         function changeStep() {
             steps[index].classList.remove('active');
             index = (index + 1) % steps.length;
             steps[index].classList.add('active');
-            carousel.style.transform = `translateY(-${index * 100/3}%)`;
+            carousel.style.transform = `translateY(-${index * 100 / 3}%)`;
         }
 
         setInterval(changeStep, interval);
-    </script>
 
+        // JavaScript para el modal de privacidad
+        const modal = document.getElementById("privacyModal");
+        const closeModal = document.querySelector(".modal .close");
+        const acceptButton = document.getElementById("acceptPrivacy");
+
+        // Mostrar el modal al cargar la página
+        window.onload = function() {
+            modal.style.display = "block";
+        };
+
+        // Cerrar modal al hacer clic en la "x"
+        closeModal.onclick = function() {
+            modal.style.display = "none";
+        };
+
+        // Cerrar modal al aceptar
+        acceptButton.onclick = function() {
+            modal.style.display = "none";
+        };
+
+        // Cerrar modal si se hace clic fuera del mismo
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
+    </script>
 </body>
 </html>
